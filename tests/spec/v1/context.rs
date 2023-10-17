@@ -1,7 +1,7 @@
 use super::{TestDescriptor, TestError, TestProfile, TestSpan};
 use anyhow::Result;
+use casper_wasmi::nan_preserving_float::{F32, F64};
 use std::collections::HashMap;
-use wasmi::nan_preserving_float::{F32, F64};
 use wasmi_core::Value;
 use wasmi_v1::{
     Config,

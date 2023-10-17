@@ -73,7 +73,7 @@ impl<'a> RuntimeArgs<'a> {
 /// # Examples
 ///
 /// ```rust
-/// use wasmi::{
+/// use casper_wasmi::{
 ///     Externals, RuntimeValue, RuntimeArgs, Error, ModuleImportResolver,
 ///     FuncRef, ValueType, Signature, FuncInstance, Trap,
 /// };

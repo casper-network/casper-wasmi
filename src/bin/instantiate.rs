@@ -1,10 +1,9 @@
 //! Handy utility to test whether the given module deserializes,
 //! validates and instantiates successfully.
 
-extern crate wasmi;
+extern crate casper_wasmi;
 
-use std::{env::args, fs::File};
-use wasmi::{
+use casper_wasmi::{
     memory_units::*,
     Error,
     FuncInstance,
@@ -26,6 +25,7 @@ use wasmi::{
     TableInstance,
     TableRef,
 };
+use std::{env::args, fs::File};
 
 fn load_from_file(filename: &str) -> Module {
     use std::io::prelude::*;

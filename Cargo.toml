@@ -1,12 +1,12 @@
 [package]
-name = "wasmi"
+name = "casper-wasmi"
 version = "0.13.2"
 edition = "2021"
-authors = ["Parity Technologies <admin@parity.io>", "Nikolay Volf <nikvolf@gmail.com>", "Svyatoslav Nikolsky <svyatonik@yandex.ru>", "Sergey Pepyakin <s.pepyakin@gmail.com>"]
+authors = ["Parity Technologies <admin@parity.io>", "Nikolay Volf <nikvolf@gmail.com>", "Svyatoslav Nikolsky <svyatonik@yandex.ru>", "Sergey Pepyakin <s.pepyakin@gmail.com>", "Michał Papierski <michal@casperlabs.io>"]
 license = "MIT/Apache-2.0"
 readme = "README.md"
-repository = "https://github.com/paritytech/wasmi"
-documentation = "https://paritytech.github.io/wasmi/"
+repository = "https://github.com/casper-network/casper-wasmi"
+documentation = "https://docs.rs/casper-wasmi/"
 description = "WebAssembly interpreter"
 keywords = ["wasm", "webassembly", "bytecode", "interpreter"]
 exclude = [ "/res/*", "/tests/*", "/fuzz/*", "/benches/*" ]
@@ -14,7 +14,7 @@ exclude = [ "/res/*", "/tests/*", "/fuzz/*", "/benches/*" ]
 [dependencies]
 wasmi_core = { version = "0.2.1", path = "core", default-features = false }
 validation = { package = "wasmi-validation", version = "0.5.0", path = "validation", default-features = false }
-casper-wasm = { package = "parity-wasm", default-features = false, git = "https://github.com/casper-network/casper-wasm", branch = "main" }
+casper-wasm = { version = "0.46.0", default-features = false }
 
 [dev-dependencies]
 assert_matches = "1.5"

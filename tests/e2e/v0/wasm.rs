@@ -1,8 +1,7 @@
 // Test-only code importing std for no-std testing
 extern crate std;
 
-use std::{fs::File, vec::Vec};
-use wasmi::{
+use casper_wasmi::{
     memory_units::Pages,
     Error,
     FuncRef,
@@ -23,6 +22,7 @@ use wasmi::{
     TableInstance,
     TableRef,
 };
+use std::{fs::File, vec::Vec};
 
 struct Env {
     table_base: GlobalRef,

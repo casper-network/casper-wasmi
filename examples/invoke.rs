@@ -1,10 +1,10 @@
 extern crate casper_wasm;
-extern crate wasmi;
+extern crate casper_wasmi;
 
 use std::env::args;
 
 use casper_wasm::elements::{External, FunctionType, Internal, Module, Type, ValueType};
-use wasmi::{ImportsBuilder, ModuleInstance, NopExternals, RuntimeValue};
+use casper_wasmi::{ImportsBuilder, ModuleInstance, NopExternals, RuntimeValue};
 
 fn main() {
     let args: Vec<_> = args().collect();
@@ -98,7 +98,8 @@ fn main() {
             .collect::<Vec<RuntimeValue>>()
     };
 
-    let loaded_module = wasmi::Module::from_casper_wasm_module(module).expect("Module to be valid");
+    let loaded_module =
+        casper_wasmi::Module::from_casper_wasm_module(module).expect("Module to be valid");
 
     // Intialize deserialized module. It adds module into It expects 3 parameters:
     // - a name for the module

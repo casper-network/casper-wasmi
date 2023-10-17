@@ -3,10 +3,10 @@
 |:----------------------:|:--------------------:|:----------------:|:--------------------:|
 | [![ci][1]][2]          | [![codecov][5]][6]   | [![docs][9]][10] | [![crates][11]][12]  |
 
-[1]: https://github.com/paritytech/wasmi/workflows/Rust%20-%20Continuous%20Integration/badge.svg?branch=master
-[2]: https://github.com/paritytech/wasmi/actions?query=workflow%3A%22Rust+-+Continuous+Integration%22+branch%3Amaster
-[5]: https://codecov.io/gh/paritytech/wasmi/branch/master/graph/badge.svg
-[6]: https://codecov.io/gh/paritytech/wasmi/branch/master
+[1]: https://github.com/casper-network/casper-wasmi/workflows/Rust%20-%20Continuous%20Integration/badge.svg?branch=master
+[2]: https://github.com/casper-network/casper-wasmi/actions?query=workflow%3A%22Rust+-+Continuous+Integration%22+branch%3Amaster
+[5]: https://codecov.io/gh/casper-network/casper-wasmi/branch/master/graph/badge.svg
+[6]: https://codecov.io/gh/casper-network/casper-wasmi/branch/master
 [9]: https://docs.rs/wasmi/badge.svg
 [10]: https://docs.rs/wasmi
 [11]: https://img.shields.io/crates/v/wasmi.svg
@@ -15,11 +15,13 @@
 [license-mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license-apache-badge]: https://img.shields.io/badge/license-APACHE-orange.svg
 
-# `wasmi`- WebAssembly (Wasm) Interpreter
+# `casper-wasmi`- WebAssembly (Wasm) Interpreter
 
-`wasmi` was conceived as a component of [parity-ethereum](https://github.com/paritytech/parity-ethereum) (ethereum-like contracts in wasm) and [substrate](https://github.com/paritytech/substrate). These projects are related to blockchain and require a high degree of correctness. The project is not trying to be involved in any implementation of any work-in-progress Wasm proposals. Instead the project tries to be as close as possible to the specification, therefore avoiding features that are not directly supported by the specification.
+`wasmi` was originally conceived as a component of [parity-ethereum](https://github.com/paritytech/parity-ethereum) (ethereum-like contracts in wasm) and [substrate](https://github.com/paritytech/substrate). These projects are related to blockchain and require a high degree of correctness. The project is not trying to be involved in any implementation of any work-in-progress Wasm proposals. Instead the project tries to be as close as possible to the specification, therefore avoiding features that are not directly supported by the specification.
 
 With all that said `wasmi` should be a good option for initial prototyping and there shouldn't be a problem migrating from `wasmi` to another specification compliant execution engine later on.
+
+The crate `casper-wasmi` is a fork of a wasmi project with additional fixes and security hardening.
 
 # Distinct Features
 
