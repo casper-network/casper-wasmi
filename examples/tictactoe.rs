@@ -1,4 +1,4 @@
-extern crate parity_wasm;
+extern crate casper_wasm;
 extern crate wasmi;
 
 use std::{env, fmt, fs::File};

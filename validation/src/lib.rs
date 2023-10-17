@@ -22,7 +22,7 @@ use core::fmt;
 use std::error;
 
 use self::context::ModuleContextBuilder;
-use parity_wasm::elements::{
+use casper_wasm::elements::{
     BlockType,
     ExportEntry,
     External,

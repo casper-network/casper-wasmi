@@ -1,6 +1,6 @@
 use crate::isa;
 use alloc::vec::Vec;
-use parity_wasm::elements::Module;
+use casper_wasm::elements::Module;
 use validation::{validate_module, Error, Validator};
 
 #[cfg(not(feature = "std"))]
@@ -61,7 +61,7 @@ pub fn compile_module(module: Module) -> Result<CompiledModule, Error> {
 ///   consumes or produces a value of a floating point type)
 /// - If a floating point type used in a definition of a function.
 pub fn deny_floating_point(module: &Module) -> Result<(), Error> {
-    use parity_wasm::elements::{
+    use casper_wasm::elements::{
         Instruction::{self, *},
         Type,
         ValueType,

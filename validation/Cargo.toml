@@ -8,11 +8,11 @@ repository = "https://github.com/paritytech/wasmi"
 description = "Wasm code validator"
 
 [dependencies]
-parity-wasm = { version = "0.45.0", default-features = false }
+casper-wasm = { package = "parity-wasm", default-features = false, git = "https://github.com/casper-network/casper-wasm/", branch = "main" }
 
 [dev-dependencies]
 assert_matches = "1.1"
 
 [features]
 default = ["std"]
-std = ["parity-wasm/std"]
+std = ["casper-wasm/std"]

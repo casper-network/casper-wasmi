@@ -14,7 +14,7 @@ exclude = [ "/res/*", "/tests/*", "/fuzz/*", "/benches/*" ]
 [dependencies]
 wasmi_core = { version = "0.2.1", path = "core", default-features = false }
 validation = { package = "wasmi-validation", version = "0.5.0", path = "validation", default-features = false }
-parity-wasm = { version = "0.45.0", default-features = false }
+casper-wasm = { package = "parity-wasm", default-features = false, git = "https://github.com/casper-network/casper-wasm", branch = "main" }
 
 [dev-dependencies]
 assert_matches = "1.5"
@@ -33,7 +33,7 @@ default = ["std"]
 # Use `no-default-features` for a `no_std` build.
 std = [
     "wasmi_core/std",
-    "parity-wasm/std",
+    "casper-wasm/std",
     "validation/std",
 ]
 # Enables OS supported virtual memory.
@@ -47,7 +47,7 @@ std = [
 # - By nature this feature requires `region` and the Rust standard library.
 virtual_memory = ["wasmi_core/virtual_memory", "std"]
 
-reduced-stack-buffer = [ "parity-wasm/reduced-stack-buffer" ]
+reduced-stack-buffer = [ "casper-wasm/reduced-stack-buffer" ]
 
 [workspace]
 members = ["validation", "core", "wasmi_v1", "cli"]

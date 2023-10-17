@@ -1,5 +1,5 @@
 use crate::{Error, PlainValidator};
-use parity_wasm::{
+use casper_wasm::{
     builder::module,
     elements::{
         BlockType,

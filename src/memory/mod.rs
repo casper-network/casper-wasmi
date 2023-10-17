@@ -4,6 +4,7 @@ use crate::{
     Error,
 };
 use alloc::{rc::Rc, string::ToString, vec::Vec};
+use casper_wasm::elements::ResizableLimits;
 use core::{
     cell::{Cell, Ref, RefCell, RefMut},
     cmp,
@@ -11,7 +12,6 @@ use core::{
     ops::Range,
     u32,
 };
-use parity_wasm::elements::ResizableLimits;
 
 #[cfg(all(feature = "virtual_memory", target_pointer_width = "64"))]
 #[path = "mmap_bytebuf.rs"]

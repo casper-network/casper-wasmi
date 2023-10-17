@@ -24,11 +24,11 @@ use alloc::{
     string::{String, ToString},
     vec::Vec,
 };
+use casper_wasm::elements::{External, InitExpr, Instruction, Internal, ResizableLimits, Type};
 use core::{
     cell::{Ref, RefCell},
     fmt,
 };
-use parity_wasm::elements::{External, InitExpr, Instruction, Internal, ResizableLimits, Type};
 use validation::{DEFAULT_MEMORY_INDEX, DEFAULT_TABLE_INDEX};
 
 /// Reference to a [`ModuleInstance`].

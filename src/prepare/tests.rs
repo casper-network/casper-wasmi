@@ -6,7 +6,7 @@ use std::println;
 
 use super::{compile_module, CompiledModule};
 use crate::isa;
-use parity_wasm::{deserialize_buffer, elements::Module};
+use casper_wasm::{deserialize_buffer, elements::Module};
 
 fn validate(wat: &str) -> CompiledModule {
     let wasm = wat::parse_str(wat).unwrap();

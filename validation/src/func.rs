@@ -8,8 +8,8 @@ use crate::{
     DEFAULT_TABLE_INDEX,
 };
 
+use casper_wasm::elements::{BlockType, Func, FuncBody, Instruction, TableElementType, ValueType};
 use core::u32;
-use parity_wasm::elements::{BlockType, Func, FuncBody, Instruction, TableElementType, ValueType};
 
 /// Maximum number of entries in value stack per function.
 const DEFAULT_VALUE_STACK_LIMIT: usize = 16384;
@@ -123,7 +123,7 @@ pub fn drive<T: FuncValidator>(
     }
 
     // The last `end` opcode should pop last instruction.
-    // parity-wasm ensures that there is always `End` opcode at
+    // casper-wasm ensures that there is always `End` opcode at
     // the end of the function body.
     assert!(context.frame_stack.is_empty());
 

@@ -1,5 +1,5 @@
 use crate::ValueType;
-use parity_wasm::elements as pwasm;
+use casper_wasm::elements as pwasm;
 
 /// Compatibility trait to convert from and to `pwasm::ValueType`.
 pub trait PwasmCompat {
