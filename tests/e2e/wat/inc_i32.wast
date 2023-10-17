@@ -19,7 +19,7 @@
  (export "__post_instantiate" (func $2))
  (func $0 (type $0) (param $var$0 i32) (result i32)
   (i32.add
-   (get_local $var$0)
+   (local.get $var$0)
    (i32.const 1)
   )
  )
@@ -28,12 +28,12 @@
  )
  (func $2 (type $1)
   (block $label$0
-   (set_global $global$0
-    (get_global $import$0)
+   (global.set $global$0
+    (global.get $import$0)
    )
-   (set_global $global$1
+   (global.set $global$1
     (i32.add
-     (get_global $global$0)
+     (global.get $global$0)
      (i32.const 5242880)
     )
    )
@@ -42,4 +42,3 @@
  )
  ;; custom section "dylink", size 5
 )
-

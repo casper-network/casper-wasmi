@@ -113,7 +113,7 @@ fn get_local() {
         r#"
 		(module
 			(func (export "call") (param i32) (result i32)
-				get_local 0
+				local.get 0
 			)
 		)
 	"#,
@@ -137,8 +137,8 @@ fn get_local_2() {
         r#"
 		(module
 			(func (export "call") (param i32) (param i32) (result i32)
-				get_local 0
-                get_local 1
+				local.get 0
+                local.get 1
                 drop
 			)
 		)
@@ -165,7 +165,7 @@ fn explicit_return() {
         r#"
 		(module
 			(func (export "call") (param i32) (result i32)
-				get_local 0
+				local.get 0
 				return
 			)
 		)
@@ -193,9 +193,9 @@ fn add_params() {
     let module = validate(
         r#"
 		(module
-			(func (export "call") (param i32) (param i32) (result i32)
-				get_local 0
-				get_local 1
+			(func (export "call") (param $param1 i32) (param $param2 i32) (result i32)
+				local.get $param1
+				local.get $param2
 				i32.add
 			)
 		)
@@ -228,8 +228,8 @@ fn drop_locals() {
 		(module
 			(func (export "call") (param i32)
 				(local i32)
-				get_local 0
-				set_local 1
+				local.get 0
+				local.set 1
 			)
 		)
 	"#,
@@ -300,10 +300,10 @@ fn if_else() {
 				i32.const 1
 				if
 					i32.const 2
-					set_local 0
+					local.set 0
 				else
 					i32.const 3
-					set_local 0
+					local.set 0
 				end
 			)
 		)
@@ -735,7 +735,7 @@ fn wabt_example() {
 		(module
 			(func (export "call") (param i32) (result i32)
 				block $exit
-					get_local 0
+					local.get 0
 					br_if $exit
 					i32.const 1
 					return

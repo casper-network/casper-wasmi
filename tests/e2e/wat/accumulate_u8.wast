@@ -28,48 +28,48 @@
   (block $label$0 (result i32)
    (if
     (i32.gt_s
-     (get_local $var$0)
+     (local.get $var$0)
      (i32.const 0)
     )
-    (block $label$1
-     (set_local $var$2
-      (i32.const 0)
-     )
-     (set_local $var$3
+    (then
+     (local.set $var$2
+     (i32.const 0)
+    )
+     (local.set $var$3
       (i32.const 0)
      )
     )
-    (block $label$2
+    (else
      (return
-      (i32.const 0)
+     (i32.const 0)
      )
     )
    )
    (loop $label$3
-    (set_local $var$3
+    (local.set $var$3
      (i32.add
       (i32.load8_u
        (i32.add
-        (get_local $var$1)
-        (get_local $var$2)
+        (local.get $var$1)
+        (local.get $var$2)
        )
       )
-      (get_local $var$3)
+      (local.get $var$3)
      )
     )
     (br_if $label$3
      (i32.ne
-      (tee_local $var$2
+      (local.tee $var$2
        (i32.add
-        (get_local $var$2)
+        (local.get $var$2)
         (i32.const 1)
        )
       )
-      (get_local $var$0)
+      (local.get $var$0)
      )
     )
    )
-   (get_local $var$3)
+   (local.get $var$3)
   )
  )
  (func $1 (type $1)
@@ -77,12 +77,12 @@
  )
  (func $2 (type $1)
   (block $label$0
-   (set_global $global$0
-    (get_global $import$0)
+   (global.set $global$0
+    (global.get $import$0)
    )
-   (set_global $global$1
+   (global.set $global$1
     (i32.add
-     (get_global $global$0)
+     (global.get $global$0)
      (i32.const 5242880)
     )
    )
@@ -91,4 +91,3 @@
  )
  ;; custom section "dylink", size 5
 )
-

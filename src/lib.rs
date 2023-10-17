@@ -376,8 +376,8 @@ impl Module {
     ///         r#"
     ///         (module
     ///          (func $add (param $lhs i32) (param $rhs i32) (result i32)
-    ///                get_local $lhs
-    ///                get_local $rhs
+    ///                local.get $lhs
+    ///                local.get $rhs
     ///                i32.add))
     ///         "#,
     ///     )
@@ -392,8 +392,8 @@ impl Module {
     ///         r#"
     ///         (module
     ///          (func $add (param $lhs f32) (param $rhs f32) (result f32)
-    ///                get_local $lhs
-    ///                get_local $rhs
+    ///                local.get $lhs
+    ///                local.get $rhs
     ///                f32.add))
     ///         "#,
     ///     )
@@ -407,7 +407,7 @@ impl Module {
     ///         r#"
     ///         (module
     ///          (func $add (param $lhs f32) (param $rhs f32) (result f32)
-    ///                get_local $lhs))
+    ///                local.get $lhs))
     ///         "#,
     ///     )
     ///     .expect("failed to parse wat");
