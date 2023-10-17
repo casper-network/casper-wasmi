@@ -1,6 +1,6 @@
 use crate::Error;
 use alloc::vec::Vec;
-use parity_wasm::elements::{
+use casper_wasm::elements::{
     BlockType,
     FunctionType,
     GlobalType,

@@ -1,7 +1,7 @@
 mod host;
 mod wasm;
 
-use wasmi::{Error, Module};
+use casper_wasmi::{Error, Module};
 
 fn assert_send<T: Send>() {}
 fn assert_sync<T: Sync>() {}
@@ -23,7 +23,7 @@ fn assert_error_properties() {
 /// to a Value and back works as expected and the number remains unchanged.
 #[test]
 fn unsigned_to_value() {
-    use wasmi::RuntimeValue;
+    use casper_wasmi::RuntimeValue;
 
     let overflow_i32: u32 = ::core::i32::MAX as u32 + 1;
     assert_eq!(

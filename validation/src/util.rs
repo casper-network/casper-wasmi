@@ -1,6 +1,6 @@
 use crate::Error;
 use alloc::string::String;
-use parity_wasm::elements::{Local, ValueType};
+use casper_wasm::elements::{Local, ValueType};
 
 /// Locals are the concatenation of a slice of function parameters
 /// with function declared local variables.

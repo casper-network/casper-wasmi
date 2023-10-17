@@ -48,10 +48,10 @@
 //! # Examples
 //!
 //! ```rust
-//! extern crate wasmi;
+//! extern crate casper_wasmi;
 //! extern crate wat;
 //!
-//! use wasmi::{ModuleInstance, ImportsBuilder, NopExternals, RuntimeValue};
+//! use casper_wasmi::{ModuleInstance, ImportsBuilder, NopExternals, RuntimeValue};
 //!
 //! fn main() {
 //!     // Parse WAT (WebAssembly Text format) into wasm bytecode.
@@ -68,7 +68,7 @@
 //!         .expect("failed to parse wat");
 //!
 //!     // Load wasm binary and prepare it for instantiation.
-//!     let module = wasmi::Module::from_buffer(&wasm_binary)
+//!     let module = casper_wasmi::Module::from_buffer(&wasm_binary)
 //!         .expect("failed to load wasm");
 //!
 //!     // Instantiate a module with empty imports and
@@ -317,13 +317,13 @@ pub mod nan_preserving_float {
 /// Deserialized module prepared for instantiation.
 pub struct Module {
     code_map: Vec<isa::Instructions>,
-    module: parity_wasm::elements::Module,
+    module: casper_wasm::elements::Module,
 }
 
 impl Module {
-    /// Create `Module` from `parity_wasm::elements::Module`.
+    /// Create `Module` from `casper_wasm::elements::Module`.
     ///
-    /// This function will load, validate and prepare a `parity_wasm`'s `Module`.
+    /// This function will load, validate and prepare a `casper_wasm`'s `Module`.
     ///
     /// # Errors
     ///
@@ -332,11 +332,11 @@ impl Module {
     /// # Examples
     ///
     /// ```rust
-    /// extern crate parity_wasm;
-    /// extern crate wasmi;
+    /// extern crate casper_wasm;
+    /// extern crate casper_wasmi;
     ///
-    /// use parity_wasm::builder;
-    /// use parity_wasm::elements;
+    /// use casper_wasm::builder;
+    /// use casper_wasm::elements;
     ///
     /// fn main() {
     ///     let parity_module =
@@ -347,13 +347,51 @@ impl Module {
     ///             .build()
     ///         .build();
     ///
-    ///     let module = wasmi::Module::from_parity_wasm_module(parity_module)
-    ///         .expect("parity-wasm builder generated invalid module!");
+    ///     let module = casper_wasmi::Module::from_casper_wasm_module(parity_module)
+    ///         .expect("casper-wasm builder generated invalid module!");
     ///
     ///     // Instantiate `module`, etc...
     /// }
     /// ```
-    pub fn from_parity_wasm_module(module: parity_wasm::elements::Module) -> Result<Module, Error> {
+    #[deprecated(note = "Please use `Module::from_casper_wasm_module` instead")]
+    #[inline]
+    pub fn from_parity_wasm_module(module: casper_wasm::elements::Module) -> Result<Module, Error> {
+        Self::from_casper_wasm_module(module)
+    }
+
+    /// Create `Module` from `casper_wasm::elements::Module`.
+    ///
+    /// This function will load, validate and prepare a `casper_wasm`'s `Module`.
+    ///
+    /// # Errors
+    ///
+    /// Returns `Err` if provided `Module` is not valid.
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// extern crate casper_wasm;
+    /// extern crate casper_wasmi;
+    ///
+    /// use casper_wasm::builder;
+    /// use casper_wasm::elements;
+    ///
+    /// fn main() {
+    ///     let parity_module =
+    ///         builder::module()
+    ///             .function()
+    ///                 .signature().with_param(elements::ValueType::I32).build()
+    ///                 .body().build()
+    ///             .build()
+    ///         .build();
+    ///
+    ///     let module = casper_wasmi::Module::from_casper_wasm_module(parity_module)
+    ///         .expect("casper-wasm builder generated invalid module!");
+    ///
+    ///     // Instantiate `module`, etc...
+    /// }
+    /// ```
+    pub fn from_casper_wasm_module(module: casper_wasm::elements::Module) -> Result<Module, Error> {
         let prepare::CompiledModule { code_map, module } = prepare::compile_module(module)?;
 
         Ok(Module { code_map, module })
@@ -368,7 +406,7 @@ impl Module {
     /// # Examples
     ///
     /// ```rust
-    /// # extern crate wasmi;
+    /// # extern crate casper_wasmi;
     /// # extern crate wat;
     ///
     /// let wasm_binary: Vec<u8> =
@@ -376,15 +414,15 @@ impl Module {
     ///         r#"
     ///         (module
     ///          (func $add (param $lhs i32) (param $rhs i32) (result i32)
-    ///                get_local $lhs
-    ///                get_local $rhs
+    ///                local.get $lhs
+    ///                local.get $rhs
     ///                i32.add))
     ///         "#,
     ///     )
     ///     .expect("failed to parse wat");
     ///
     /// // Load wasm binary and prepare it for instantiation.
-    /// let module = wasmi::Module::from_buffer(&wasm_binary).expect("Parsing failed");
+    /// let module = casper_wasmi::Module::from_buffer(&wasm_binary).expect("Parsing failed");
     /// assert!(module.deny_floating_point().is_ok());
     ///
     /// let wasm_binary: Vec<u8> =
@@ -392,14 +430,14 @@ impl Module {
     ///         r#"
     ///         (module
     ///          (func $add (param $lhs f32) (param $rhs f32) (result f32)
-    ///                get_local $lhs
-    ///                get_local $rhs
+    ///                local.get $lhs
+    ///                local.get $rhs
     ///                f32.add))
     ///         "#,
     ///     )
     ///     .expect("failed to parse wat");
     ///
-    /// let module = wasmi::Module::from_buffer(&wasm_binary).expect("Parsing failed");
+    /// let module = casper_wasmi::Module::from_buffer(&wasm_binary).expect("Parsing failed");
     /// assert!(module.deny_floating_point().is_err());
     ///
     /// let wasm_binary: Vec<u8> =
@@ -407,12 +445,12 @@ impl Module {
     ///         r#"
     ///         (module
     ///          (func $add (param $lhs f32) (param $rhs f32) (result f32)
-    ///                get_local $lhs))
+    ///                local.get $lhs))
     ///         "#,
     ///     )
     ///     .expect("failed to parse wat");
     ///
-    /// let module = wasmi::Module::from_buffer(&wasm_binary).expect("Parsing failed");
+    /// let module = casper_wasmi::Module::from_buffer(&wasm_binary).expect("Parsing failed");
     /// assert!(module.deny_floating_point().is_err());
     /// ```
     pub fn deny_floating_point(&self) -> Result<(), Error> {
@@ -431,11 +469,11 @@ impl Module {
     /// # Examples
     ///
     /// ```rust
-    /// extern crate wasmi;
+    /// extern crate casper_wasmi;
     ///
     /// fn main() {
     ///     let module =
-    ///         wasmi::Module::from_buffer(
+    ///         casper_wasmi::Module::from_buffer(
     ///             // Minimal module:
     ///             //   \0asm - magic
     ///             //    0x01 - version (in little-endian)
@@ -446,12 +484,12 @@ impl Module {
     /// }
     /// ```
     pub fn from_buffer<B: AsRef<[u8]>>(buffer: B) -> Result<Module, Error> {
-        let module = parity_wasm::elements::deserialize_buffer(buffer.as_ref())
-            .map_err(|e: parity_wasm::elements::Error| Error::Validation(e.to_string()))?;
-        Module::from_parity_wasm_module(module)
+        let module = casper_wasm::elements::deserialize_buffer(buffer.as_ref())
+            .map_err(|e: casper_wasm::elements::Error| Error::Validation(e.to_string()))?;
+        Module::from_casper_wasm_module(module)
     }
 
-    pub(crate) fn module(&self) -> &parity_wasm::elements::Module {
+    pub(crate) fn module(&self) -> &casper_wasm::elements::Module {
         &self.module
     }
 

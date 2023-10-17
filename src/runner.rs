@@ -23,8 +23,8 @@ use crate::{
     ValueType,
 };
 use alloc::{boxed::Box, vec::Vec};
+use casper_wasm::elements::Local;
 use core::{fmt, ops, u32, usize};
-use parity_wasm::elements::Local;
 use validation::{DEFAULT_MEMORY_INDEX, DEFAULT_TABLE_INDEX};
 
 /// Maximum number of bytes on the value stack.

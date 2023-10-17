@@ -13,8 +13,8 @@ use alloc::{
     rc::{Rc, Weak},
     vec::Vec,
 };
+use casper_wasm::elements::Local;
 use core::fmt;
-use parity_wasm::elements::Local;
 
 /// Reference to a function (See [`FuncInstance`] for details).
 ///

@@ -1,7 +1,7 @@
 //! Official spec testsuite.
 
+extern crate casper_wasmi;
 extern crate wabt;
-extern crate wasmi;
 
 mod e2e;
 mod spec;

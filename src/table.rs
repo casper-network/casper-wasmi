@@ -1,7 +1,7 @@
 use crate::{func::FuncRef, module::check_limits, Error};
 use alloc::{rc::Rc, vec::Vec};
+use casper_wasm::elements::ResizableLimits;
 use core::{cell::RefCell, fmt, u32};
-use parity_wasm::elements::ResizableLimits;
 
 /// Reference to a table (See [`TableInstance`] for details).
 ///

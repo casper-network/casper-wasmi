@@ -1,6 +1,6 @@
 use crate::{pwasm::PwasmCompat, ValueType};
 use alloc::borrow::Cow;
-use parity_wasm::elements::{FunctionType, GlobalType, MemoryType, TableType};
+use casper_wasm::elements::{FunctionType, GlobalType, MemoryType, TableType};
 
 /// Signature of a [function].
 ///
@@ -23,7 +23,7 @@ impl Signature {
     /// # Examples
     ///
     /// ```rust
-    /// use wasmi::{Signature, ValueType};
+    /// use casper_wasmi::{Signature, ValueType};
     ///
     /// // s1: (i32) -> ()
     /// let s1 = Signature::new(&[ValueType::I32][..], None);

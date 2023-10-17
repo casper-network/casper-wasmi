@@ -10,10 +10,10 @@ use self::bench::{
     load_wasm_from_file,
     wat2wasm,
 };
+use casper_wasmi as v0;
+use casper_wasmi::{RuntimeValue as Value, Trap};
 use criterion::{criterion_group, criterion_main, Bencher, Criterion};
 use std::{slice, time::Duration};
-use wasmi as v0;
-use wasmi::{RuntimeValue as Value, Trap};
 use wasmi_v1 as v1;
 
 const WASM_KERNEL: &str =

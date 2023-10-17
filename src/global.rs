@@ -1,7 +1,7 @@
 use crate::{pwasm::PwasmCompat, Error, RuntimeValue, ValueType};
 use alloc::rc::Rc;
+use casper_wasm::elements::ValueType as EValueType;
 use core::cell::Cell;
-use parity_wasm::elements::ValueType as EValueType;
 
 /// Reference to a global variable (See [`GlobalInstance`] for details).
 ///

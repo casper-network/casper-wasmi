@@ -1,10 +1,10 @@
-extern crate parity_wasm;
-extern crate wasmi;
+extern crate casper_wasm;
+extern crate casper_wasmi;
 
 use std::env::args;
 
-use parity_wasm::elements::{External, FunctionType, Internal, Module, Type, ValueType};
-use wasmi::{ImportsBuilder, ModuleInstance, NopExternals, RuntimeValue};
+use casper_wasm::elements::{External, FunctionType, Internal, Module, Type, ValueType};
+use casper_wasmi::{ImportsBuilder, ModuleInstance, NopExternals, RuntimeValue};
 
 fn main() {
     let args: Vec<_> = args().collect();
@@ -98,7 +98,8 @@ fn main() {
             .collect::<Vec<RuntimeValue>>()
     };
 
-    let loaded_module = wasmi::Module::from_parity_wasm_module(module).expect("Module to be valid");
+    let loaded_module =
+        casper_wasmi::Module::from_casper_wasm_module(module).expect("Module to be valid");
 
     // Intialize deserialized module. It adds module into It expects 3 parameters:
     // - a name for the module
@@ -119,11 +120,11 @@ fn main() {
 
 #[cfg(feature = "std")]
 fn load_module(file: &str) -> Module {
-    parity_wasm::deserialize_file(file).expect("File to be deserialized")
+    casper_wasm::deserialize_file(file).expect("File to be deserialized")
 }
 
 #[cfg(not(feature = "std"))]
 fn load_module(file: &str) -> Module {
     let mut buf = std::fs::read(file).expect("Read file");
-    parity_wasm::deserialize_buffer(&mut buf).expect("Deserialize module")
+    casper_wasm::deserialize_buffer(&mut buf).expect("Deserialize module")
 }

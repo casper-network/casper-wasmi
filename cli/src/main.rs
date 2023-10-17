@@ -1,14 +1,14 @@
 use anyhow::{anyhow, bail, Result};
-use clap::Parser;
-use core::fmt::Write;
-use std::fs;
-use wasmi::{
+use casper_wasmi::{
     core::{Value, ValueType, F32, F64},
     ExportItemKind,
     Func,
     FuncType,
     Store,
 };
+use clap::Parser;
+use core::fmt::Write;
+use std::fs;
 use wasmi_v1 as wasmi;
 
 /// Simple program to greet a person

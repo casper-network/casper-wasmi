@@ -81,12 +81,12 @@ pub trait ImportResolver {
 /// # Examples
 ///
 /// ```rust
-/// use wasmi::{ModuleInstance, ImportsBuilder};
+/// use casper_wasmi::{ModuleInstance, ImportsBuilder};
 /// #
 /// # struct EnvModuleResolver;
-/// # impl ::wasmi::ModuleImportResolver for EnvModuleResolver { }
-/// # fn func() -> Result<(), ::wasmi::Error> {
-/// # let module = wasmi::Module::from_buffer(&[0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]).unwrap();
+/// # impl ::casper_wasmi::ModuleImportResolver for EnvModuleResolver { }
+/// # fn func() -> Result<(), ::casper_wasmi::Error> {
+/// # let module = casper_wasmi::Module::from_buffer(&[0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]).unwrap();
 /// # let other_instance = ModuleInstance::new(&module, &ImportsBuilder::default())?.assert_no_start();
 ///
 /// let imports = ImportsBuilder::new()

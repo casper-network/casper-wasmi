@@ -4,15 +4,15 @@ version = "0.5.0"
 authors = ["Parity Technologies <admin@parity.io>"]
 edition = "2021"
 license = "MIT/Apache-2.0"
-repository = "https://github.com/paritytech/wasmi"
+repository = "https://github.com/casper-network/casper-wasmi"
 description = "Wasm code validator"
 
 [dependencies]
-parity-wasm = { version = "0.45.0", default-features = false }
+casper-wasm = { version = "0.46.0", default-features = false }
 
 [dev-dependencies]
 assert_matches = "1.1"
 
 [features]
 default = ["std"]
-std = ["parity-wasm/std"]
+std = ["casper-wasm/std"]

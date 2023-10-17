@@ -1,9 +1,9 @@
 // In this example we execute a contract funciton exported as "_call"
 
-extern crate wasmi;
+extern crate casper_wasmi;
 
+use casper_wasmi::{ImportsBuilder, Module, ModuleInstance, NopExternals, RuntimeValue};
 use std::{env::args, fs::File};
-use wasmi::{ImportsBuilder, Module, ModuleInstance, NopExternals, RuntimeValue};
 
 fn load_from_file(filename: &str) -> Module {
     use std::io::prelude::*;

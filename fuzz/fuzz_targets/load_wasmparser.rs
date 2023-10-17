@@ -1,7 +1,7 @@
 #![no_main]
 #[macro_use]
 extern crate libfuzzer_sys;
-extern crate wasmi;
+extern crate casper_wasmi;
 extern crate wasmparser;
 
 use wasmparser::WasmDecoder;

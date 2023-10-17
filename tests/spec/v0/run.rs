@@ -2,8 +2,7 @@
 
 use std::{collections::HashMap, fs::File};
 
-use wabt::script::{self, Action, Command, CommandKind, ScriptParser, Value as WabtValue};
-use wasmi::{
+use casper_wasmi::{
     memory_units::Pages,
     Error as InterpreterError,
     Externals,
@@ -29,6 +28,7 @@ use wasmi::{
     TableRef,
     Trap,
 };
+use wabt::script::{self, Action, Command, CommandKind, ScriptParser, Value as WabtValue};
 
 fn spec_to_value(val: WabtValue<u32, u64>) -> RuntimeValue {
     match val {

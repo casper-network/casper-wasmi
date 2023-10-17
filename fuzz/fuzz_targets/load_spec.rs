@@ -2,7 +2,7 @@
 #[macro_use]
 extern crate libfuzzer_sys;
 extern crate wabt;
-extern crate wasmi;
+extern crate casper_wasmi;
 extern crate tempdir;
 
 use std::fs::File;

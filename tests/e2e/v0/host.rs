@@ -2,8 +2,7 @@
 extern crate std;
 
 use super::parse_wat;
-use std::println;
-use wasmi::{
+use casper_wasmi::{
     memory_units::Pages,
     Error,
     Externals,
@@ -28,6 +27,7 @@ use wasmi::{
     TrapCode,
     ValueType,
 };
+use std::println;
 
 #[derive(Debug, Clone, PartialEq)]
 struct HostErrorWithCode {
@@ -514,7 +514,7 @@ fn recursion() {
 	(func (export "recursive") (param i64) (result i64)
 		;; return arg_0 + 42;
 		(i64.add
-			(get_local 0)
+			(local.get 0)
 			(i64.const 42)
 		)
 	)

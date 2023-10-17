@@ -4,6 +4,7 @@ use crate::{
     Error,
 };
 use alloc::{rc::Rc, string::ToString, vec::Vec};
+use casper_wasm::elements::ResizableLimits;
 use core::{
     cell::{Cell, Ref, RefCell, RefMut},
     cmp,
@@ -11,7 +12,6 @@ use core::{
     ops::Range,
     u32,
 };
-use parity_wasm::elements::ResizableLimits;
 
 #[cfg(all(feature = "virtual_memory", target_pointer_width = "64"))]
 #[path = "mmap_bytebuf.rs"]
@@ -181,8 +181,8 @@ impl MemoryInstance {
     /// To convert number of pages to number of bytes you can use the following code:
     ///
     /// ```rust
-    /// use wasmi::MemoryInstance;
-    /// use wasmi::memory_units::*;
+    /// use casper_wasmi::MemoryInstance;
+    /// use casper_wasmi::memory_units::*;
     ///
     /// let memory = MemoryInstance::alloc(Pages(1), None).unwrap();
     /// let byte_size: Bytes = memory.current_size().into();

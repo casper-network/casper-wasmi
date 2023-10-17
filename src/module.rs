@@ -24,11 +24,11 @@ use alloc::{
     string::{String, ToString},
     vec::Vec,
 };
+use casper_wasm::elements::{External, InitExpr, Instruction, Internal, ResizableLimits, Type};
 use core::{
     cell::{Ref, RefCell},
     fmt,
 };
-use parity_wasm::elements::{External, InitExpr, Instruction, Internal, ResizableLimits, Type};
 use validation::{DEFAULT_MEMORY_INDEX, DEFAULT_TABLE_INDEX};
 
 /// Reference to a [`ModuleInstance`].
@@ -502,9 +502,9 @@ impl ModuleInstance {
     /// # Examples
     ///
     /// ```rust
-    /// use wasmi::{ModuleInstance, ImportsBuilder, NopExternals};
-    /// # fn func() -> Result<(), ::wasmi::Error> {
-    /// # let module = wasmi::Module::from_buffer(&[0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]).unwrap();
+    /// use casper_wasmi::{ModuleInstance, ImportsBuilder, NopExternals};
+    /// # fn func() -> Result<(), ::casper_wasmi::Error> {
+    /// # let module = casper_wasmi::Module::from_buffer(&[0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]).unwrap();
     ///
     /// // ModuleInstance::new returns instance which `start` function isn't called.
     /// let not_started = ModuleInstance::new(
@@ -522,9 +522,9 @@ impl ModuleInstance {
     /// instantiated module without calling `start` function.
     ///
     /// ```rust
-    /// use wasmi::{ModuleInstance, ImportsBuilder, NopExternals};
-    /// # fn func() -> Result<(), ::wasmi::Error> {
-    /// # let module = wasmi::Module::from_buffer(&[0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]).unwrap();
+    /// use casper_wasmi::{ModuleInstance, ImportsBuilder, NopExternals};
+    /// # fn func() -> Result<(), ::casper_wasmi::Error> {
+    /// # let module = casper_wasmi::Module::from_buffer(&[0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]).unwrap();
     ///
     /// // This will panic if the module actually contain `start` function.
     /// let not_started = ModuleInstance::new(
@@ -604,22 +604,22 @@ impl ModuleInstance {
     /// Invoke a function that takes two numbers and returns sum of them.
     ///
     /// ```rust
-    /// # extern crate wasmi;
+    /// # extern crate casper_wasmi;
     /// # extern crate wat;
-    /// # use wasmi::{ModuleInstance, ImportsBuilder, NopExternals, RuntimeValue};
+    /// # use casper_wasmi::{ModuleInstance, ImportsBuilder, NopExternals, RuntimeValue};
     /// # fn main() {
     /// # let wasm_binary: Vec<u8> = wat::parse_str(
     /// #   r#"
     /// #   (module
     /// #       (func (export "add") (param i32 i32) (result i32)
-    /// #           get_local 0
-    /// #           get_local 1
+    /// #           local.get 0
+    /// #           local.get 1
     /// #           i32.add
     /// #       )
     /// #   )
     /// #   "#,
     /// # ).expect("failed to parse wat");
-    /// # let module = wasmi::Module::from_buffer(&wasm_binary).expect("failed to load wasm");
+    /// # let module = casper_wasmi::Module::from_buffer(&wasm_binary).expect("failed to load wasm");
     /// # let instance = ModuleInstance::new(
     /// # &module,
     /// # &ImportsBuilder::default()
