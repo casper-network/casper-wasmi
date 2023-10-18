@@ -6,7 +6,7 @@ mod utils;
 mod tests;
 
 pub use self::utils::{DropKeep, FuncIdx, GlobalIdx, LocalIdx, Offset, SignatureIdx, Target};
-use wasmi_core::UntypedValue;
+use casper_wasmi_core::UntypedValue;
 
 /// The internal `wasmi` bytecode that is stored for Wasm functions.
 ///

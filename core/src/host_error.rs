@@ -14,7 +14,7 @@ use downcast_rs::{impl_downcast, DowncastSync};
 ///
 /// ```rust
 /// use std::fmt;
-/// use wasmi_core::{Trap, HostError};
+/// use casper_wasmi_core::{Trap, HostError};
 ///
 /// #[derive(Debug)]
 /// struct MyError {

@@ -17,7 +17,7 @@ use crate::{
     Memory,
     Table,
 };
-use wasmi_core::Value;
+use casper_wasmi_core::Value;
 
 impl Module {
     /// Instantiates a new [`Instance`] from the given compiled [`Module`].

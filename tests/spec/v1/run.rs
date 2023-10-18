@@ -1,6 +1,6 @@
 use super::{error::TestError, TestContext, TestDescriptor};
 use anyhow::Result;
-use wasmi_core::{Trap, Value, F32, F64};
+use casper_wasmi_core::{Trap, Value, F32, F64};
 use wasmi_v1::{Config, Error as WasmiError};
 use wast::{
     lexer::Lexer,

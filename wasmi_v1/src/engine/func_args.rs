@@ -1,5 +1,5 @@
+use casper_wasmi_core::{DecodeUntypedSlice, EncodeUntypedSlice, UntypedValue};
 use core::cmp;
-use wasmi_core::{DecodeUntypedSlice, EncodeUntypedSlice, UntypedValue};
 
 #[derive(Debug)]
 pub struct FuncParams<'a> {

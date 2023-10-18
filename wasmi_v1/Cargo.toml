@@ -12,7 +12,7 @@ keywords = ["wasm", "webassembly", "bytecode", "interpreter"]
 
 [dependencies]
 wasmparser = { version = "0.83", package = "wasmparser-nostd", default-features = false }
-wasmi_core = { version = "0.2.1", path = "../core", default-features = false }
+casper-wasmi-core = { version = "0.2.1", path = "../core", default-features = false }
 spin = { version = "0.9", default-features = false, features = ["mutex", "spin_mutex"] }
 
 [dev-dependencies]
@@ -22,7 +22,7 @@ wat = "1"
 default = ["std"]
 # Use `no-default-features` for a `no_std` build.
 std = [
-    "wasmi_core/std",
+    "casper-wasmi-core/std",
     "wasmparser/std",
     "spin/std",
 ]
@@ -35,4 +35,4 @@ std = [
 #   based implementation.
 # - The default is to fall back is an inefficient vector based implementation.
 # - By nature this feature requires `region` and the Rust standard library.
-virtual_memory = ["wasmi_core/virtual_memory", "std"]
+virtual_memory = ["casper-wasmi-core/virtual_memory", "std"]

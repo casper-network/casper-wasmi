@@ -14,8 +14,14 @@ use crate::{
     core::{Trap, TrapCode, F32, F64},
     Func,
 };
+use casper_wasmi_core::{
+    memory_units::Pages,
+    ExtendInto,
+    LittleEndianConvert,
+    UntypedValue,
+    WrapInto,
+};
 use core::cmp;
-use wasmi_core::{memory_units::Pages, ExtendInto, LittleEndianConvert, UntypedValue, WrapInto};
 
 /// State that is used during Wasm function execution.
 #[derive(Debug)]

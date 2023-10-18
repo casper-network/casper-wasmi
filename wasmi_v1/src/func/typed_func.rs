@@ -6,8 +6,8 @@ use crate::{
     AsContextMut,
     Error,
 };
+use casper_wasmi_core::Trap;
 use core::{fmt, fmt::Debug, marker::PhantomData};
-use wasmi_core::Trap;
 
 /// A typed [`Func`] instance.
 ///

@@ -174,7 +174,7 @@ impl Externals for NopExternals {
 mod tests {
     use super::RuntimeArgs;
     use crate::RuntimeValue;
-    use wasmi_core::HostError;
+    use casper_wasmi_core::HostError;
 
     #[test]
     fn i32_runtime_args() {

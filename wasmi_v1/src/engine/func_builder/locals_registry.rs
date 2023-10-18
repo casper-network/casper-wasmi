@@ -1,6 +1,6 @@
 use alloc::vec::Vec;
+use casper_wasmi_core::ValueType;
 use core::cmp::Ordering;
-use wasmi_core::ValueType;
 
 /// A registry where local variables of a function are registered and resolved.
 ///
