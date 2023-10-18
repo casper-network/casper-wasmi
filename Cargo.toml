@@ -26,7 +26,7 @@ criterion = "0.3.5"
 
 # Required as dev-dependency because otherwise benchmarks
 # have trouble using it without `cargo bench --all-features`.
-wasmi_v1 = { version = "0.11", path = "wasmi_v1" }
+wasmi_v1 = { path = "wasmi_v1" }
 
 [features]
 default = ["std"]
