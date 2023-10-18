@@ -3,8 +3,8 @@
 use super::{DropKeep, DEFAULT_VALUE_STACK_LIMIT};
 use crate::core::TrapCode;
 use alloc::vec::Vec;
+use casper_wasmi_core::UntypedValue;
 use core::{fmt, fmt::Debug, iter, mem};
-use wasmi_core::UntypedValue;
 
 /// The value stack that is used to execute Wasm bytecode.
 ///

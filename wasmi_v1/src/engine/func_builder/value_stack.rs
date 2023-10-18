@@ -1,6 +1,6 @@
 use alloc::vec::Vec;
+use casper_wasmi_core::ValueType;
 use core::cmp;
-use wasmi_core::ValueType;
 
 /// The value stack that is emulated during Wasm to `wasmi` bytecode translation.
 #[derive(Debug, Default)]

@@ -12,8 +12,8 @@ keywords = ["wasm", "webassembly", "bytecode", "interpreter"]
 exclude = [ "/res/*", "/tests/*", "/fuzz/*", "/benches/*" ]
 
 [dependencies]
-wasmi_core = { version = "0.2.1", path = "core", default-features = false }
-validation = { package = "wasmi-validation", version = "0.5.0", path = "validation", default-features = false }
+casper-wasmi-core = { version = "0.2.1", path = "core", default-features = false }
+validation = { package = "casper-wasmi-validation", version = "0.5.0", path = "validation", default-features = false }
 casper-wasm = { version = "0.46.0", default-features = false }
 
 [dev-dependencies]
@@ -32,7 +32,7 @@ wasmi_v1 = { version = "0.11", path = "wasmi_v1" }
 default = ["std"]
 # Use `no-default-features` for a `no_std` build.
 std = [
-    "wasmi_core/std",
+    "casper-wasmi-core/std",
     "casper-wasm/std",
     "validation/std",
 ]
@@ -45,7 +45,7 @@ std = [
 #   based implementation.
 # - The default is to fall back is an inefficient vector based implementation.
 # - By nature this feature requires `region` and the Rust standard library.
-virtual_memory = ["wasmi_core/virtual_memory", "std"]
+virtual_memory = ["casper-wasmi-core/virtual_memory", "std"]
 
 reduced-stack-buffer = [ "casper-wasm/reduced-stack-buffer" ]
 
@@ -55,6 +55,7 @@ exclude = []
 
 [[bench]]
 name = "benches"
+path = "./benches/benches.rs"
 harness = false
 
 [profile.bench]

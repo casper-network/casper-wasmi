@@ -8,8 +8,8 @@ mod byte_buffer;
 
 use self::byte_buffer::{ByteBuffer, VirtualMemoryError};
 use super::{AsContext, AsContextMut, Index, StoreContext, StoreContextMut, Stored};
+use casper_wasmi_core::memory_units::{Bytes, Pages};
 use core::{fmt, fmt::Display};
-use wasmi_core::memory_units::{Bytes, Pages};
 
 /// A raw index to a linear memory entity.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]

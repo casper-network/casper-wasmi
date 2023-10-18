@@ -1,6 +1,6 @@
 use super::GlobalIdx;
 use crate::ModuleError;
-use wasmi_core::{Value, F32, F64};
+use casper_wasmi_core::{Value, F32, F64};
 
 /// An initializer expression.
 ///

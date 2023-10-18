@@ -281,8 +281,8 @@ pub use self::{
     types::{GlobalDescriptor, MemoryDescriptor, Signature, TableDescriptor},
 };
 #[doc(inline)]
-pub use wasmi_core::Value as RuntimeValue;
-pub use wasmi_core::{
+pub use casper_wasmi_core::Value as RuntimeValue;
+pub use casper_wasmi_core::{
     memory_units,
     FromValue,
     HostError,
@@ -294,7 +294,7 @@ pub use wasmi_core::{
 
 /// Mirrors the old value module.
 pub(crate) mod value {
-    pub use wasmi_core::{
+    pub use casper_wasmi_core::{
         ArithmeticOps,
         ExtendInto,
         Float,
@@ -311,7 +311,7 @@ pub(crate) mod value {
 
 /// Floating point types that preserve NaN values.
 pub mod nan_preserving_float {
-    pub use wasmi_core::{F32, F64};
+    pub use casper_wasmi_core::{F32, F64};
 }
 
 /// Deserialized module prepared for instantiation.

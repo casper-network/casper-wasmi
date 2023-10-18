@@ -30,7 +30,7 @@ mod table;
 
 /// Definitions from the `wasmi_core` crate.
 #[doc(inline)]
-pub use wasmi_core as core;
+pub use casper_wasmi_core as core;
 
 /// Defines some errors that may occur upon interaction with `wasmi`.
 pub mod errors {

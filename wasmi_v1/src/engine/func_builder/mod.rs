@@ -38,7 +38,7 @@ use crate::{
     ModuleError,
     Mutability,
 };
-use wasmi_core::{Value, ValueType, F32, F64};
+use casper_wasmi_core::{Value, ValueType, F32, F64};
 
 /// The interface to translate a `wasmi` bytecode function using Wasm bytecode.
 #[derive(Debug)]

@@ -5,7 +5,7 @@
 //! memory up to maximum. This might be a problem for systems that don't have a lot of virtual
 //! memory (i.e. 32-bit platforms).
 
-use wasmi_core::VirtualMemory;
+use casper_wasmi_core::VirtualMemory;
 
 /// A virtually allocated byte buffer.
 pub struct ByteBuf {

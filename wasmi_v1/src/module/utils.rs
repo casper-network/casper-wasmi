@@ -1,5 +1,5 @@
 use crate::{FuncType, GlobalType, MemoryType, ModuleError, Mutability, TableType};
-use wasmi_core::ValueType;
+use casper_wasmi_core::ValueType;
 
 impl TryFrom<wasmparser::TableType> for TableType {
     type Error = ModuleError;

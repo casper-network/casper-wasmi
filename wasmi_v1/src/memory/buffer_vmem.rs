@@ -1,7 +1,7 @@
 use super::{max_memory_len, MemoryError};
+use casper_wasmi_core::VirtualMemory;
+pub use casper_wasmi_core::VirtualMemoryError;
 use core::fmt::Debug;
-use wasmi_core::VirtualMemory;
-pub use wasmi_core::VirtualMemoryError;
 
 /// A virtual memory based byte buffer implementation.
 ///

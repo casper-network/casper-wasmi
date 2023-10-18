@@ -1,4 +1,4 @@
-use wasmi_core::ValueType;
+use casper_wasmi_core::ValueType;
 
 use super::{EngineIdx, Guarded};
 use crate::{
