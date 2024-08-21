@@ -792,11 +792,11 @@ impl<'a> FunctionValidationContext<'a> {
                 self.validate_cvtop(ValueType::I64, ValueType::F64)?;
             }
             SignExt(instruction) => match instruction {
-                SignExtInstruction::I32Extend8S => todo!(),
-                SignExtInstruction::I32Extend16S => todo!(),
-                SignExtInstruction::I64Extend8S => todo!(),
-                SignExtInstruction::I64Extend16S => todo!(),
-                SignExtInstruction::I64Extend32S => todo!(),
+                SignExtInstruction::I32Extend8S => self.validate_unop(ValueType::I32)?,
+                SignExtInstruction::I32Extend16S => self.validate_unop(ValueType::I32)?,
+                SignExtInstruction::I64Extend8S => self.validate_unop(ValueType::I64)?,
+                SignExtInstruction::I64Extend16S => self.validate_unop(ValueType::I64)?,
+                SignExtInstruction::I64Extend32S => self.validate_unop(ValueType::I64)?,
             },
         }
 
