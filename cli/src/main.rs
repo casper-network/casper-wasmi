@@ -9,7 +9,7 @@ use casper_wasmi::{
 use clap::Parser;
 use core::fmt::Write;
 use std::fs;
-use wasmi_v1 as wasmi;
+use wasmi_v1 as casper_wasmi;
 
 /// Simple program to greet a person
 #[derive(Parser, Debug)]
@@ -87,12 +87,12 @@ fn load_wasm_func(
     wasm_bytes: &[u8],
     func_name: &str,
 ) -> Result<(Func, Store<()>)> {
-    let engine = wasmi::Engine::default();
-    let mut store = wasmi::Store::new(&engine, ());
-    let module = wasmi::Module::new(&engine, &mut &wasm_bytes[..]).map_err(|error| {
+    let engine = casper_wasmi::Engine::default();
+    let mut store = casper_wasmi::Store::new(&engine, ());
+    let module = casper_wasmi::Module::new(&engine, &mut &wasm_bytes[..]).map_err(|error| {
         anyhow!("failed to parse and validate Wasm module {wasm_file}: {error}")
     })?;
-    let mut linker = <wasmi::Linker<()>>::new();
+    let mut linker = <casper_wasmi::Linker<()>>::new();
     let instance = linker
         .instantiate(&mut store, &module)
         .and_then(|pre| pre.start(&mut store))
@@ -113,8 +113,8 @@ fn load_wasm_func(
 
 /// Returns a [`Vec`] of `(&str, FuncType)` describing the exported functions of the [`Module`].
 ///
-/// [`Module`]: [`wasmi::Module`]
-fn exported_funcs(module: &wasmi::Module) -> Vec<(&str, FuncType)> {
+/// [`Module`]: [`casper_wasmi::Module`]
+fn exported_funcs(module: &casper_wasmi::Module) -> Vec<(&str, FuncType)> {
     module
         .exports()
         .filter_map(|export| {
@@ -129,8 +129,8 @@ fn exported_funcs(module: &wasmi::Module) -> Vec<(&str, FuncType)> {
 
 /// Returns a [`String`] displaying a list of exported functions from the [`Module`].
 ///
-/// [`Module`]: [`wasmi::Module`]
-fn display_exported_funcs(module: &wasmi::Module) -> String {
+/// [`Module`]: [`casper_wasmi::Module`]
+fn display_exported_funcs(module: &casper_wasmi::Module) -> String {
     let exported_funcs = exported_funcs(module)
         .into_iter()
         .map(|(name, func_type)| display_exported_func(name, &func_type));
@@ -241,7 +241,7 @@ fn print_execution_start(wasm_file: &str, func_name: &str, func_args: &[Value]) 
     println!(") ...");
 }
 
-/// Prints the results of the Wasm computation in a human readable form.
+/// Prints the results of the Wasm computation in a human-readable form.
 fn print_pretty_results(results: &[Value]) {
     let pretty_results = results
         .iter()
