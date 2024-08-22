@@ -338,6 +338,12 @@ pub enum Instruction<'a> {
     I64ReinterpretF64,
     F32ReinterpretI32,
     F64ReinterpretI64,
+
+    I32Extend8S,
+    I32Extend16S,
+    I64Extend8S,
+    I64Extend16S,
+    I64Extend32S,
 }
 
 /// The internally-stored instruction type. This differs from `Instruction` in that the `BrTable`
@@ -533,6 +539,12 @@ pub(crate) enum InstructionInternal {
     I64ReinterpretF64,
     F32ReinterpretI32,
     F64ReinterpretI64,
+
+    I32Extend8S,
+    I32Extend16S,
+    I64Extend8S,
+    I64Extend16S,
+    I64Extend32S,
 }
 
 #[derive(Debug, Clone)]
@@ -789,6 +801,12 @@ impl<'a> Iterator for InstructionIter<'a> {
             InstructionInternal::I64ReinterpretF64 => Instruction::I64ReinterpretF64,
             InstructionInternal::F32ReinterpretI32 => Instruction::F32ReinterpretI32,
             InstructionInternal::F64ReinterpretI64 => Instruction::F64ReinterpretI64,
+
+            InstructionInternal::I32Extend8S => Instruction::I32Extend8S,
+            InstructionInternal::I32Extend16S => Instruction::I32Extend16S,
+            InstructionInternal::I64Extend8S => Instruction::I64Extend8S,
+            InstructionInternal::I64Extend16S => Instruction::I64Extend16S,
+            InstructionInternal::I64Extend32S => Instruction::I64Extend32S,
         };
 
         self.position += 1;
