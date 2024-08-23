@@ -184,10 +184,10 @@ jobs:
         with:
           version: '0.18.0'
           args: --workspace
-      - name: Upload to codecov.io
-        uses: codecov/codecov-action@v1.0.2
-        with:
-          token: ${{secrets.CODECOV_TOKEN}}
+#      - name: Upload to codecov.io
+#        uses: codecov/codecov-action@v1.0.2
+#        with:
+#          token: ${{secrets.CODECOV_TOKEN}}
       - name: Archive code coverage results
         uses: actions/upload-artifact@v1
         with:
