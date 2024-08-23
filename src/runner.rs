@@ -24,6 +24,7 @@ use crate::{
 };
 use alloc::{boxed::Box, vec::Vec};
 use casper_wasm::elements::Local;
+use casper_wasmi_core::SignExtendFrom;
 use core::{fmt, ops, u32, usize};
 use validation::{DEFAULT_MEMORY_INDEX, DEFAULT_TABLE_INDEX};
 
@@ -1273,12 +1274,11 @@ impl Interpreter {
     fn run_iextend<T, U>(&mut self) -> Result<InstructionOutcome, TrapCode>
     where
         ValueInternal: From<U>,
-        U: WrapInto<T> + FromValueInternal,
-        T: ExtendInto<U>,
+        U: SignExtendFrom<T> + FromValueInternal,
     {
         let v = self.value_stack.pop_as::<U>();
 
-        let v = v.wrap_into().extend_into();
+        let v = v.sign_extend_from();
         self.value_stack.push(v.into())?;
 
         Ok(InstructionOutcome::RunNextInstruction)
