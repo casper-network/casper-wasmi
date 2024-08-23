@@ -2,9 +2,9 @@ name: Rust - Continuous Integration
 
 on:
   push:
-    branches: [ casper-main ]
+    branches: [ main ]
   pull_request:
-    branches: [ casper-main ]
+    branches: [ main ]
 
 jobs:
   check:
