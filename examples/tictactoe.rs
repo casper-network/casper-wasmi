@@ -79,7 +79,7 @@ mod tictactoe {
             if !(0..9).contains(&idx) {
                 return Err(Error::OutOfRange);
             }
-            if self.board[idx as usize] != None {
+            if self.board[idx as usize].is_some() {
                 return Err(Error::AlreadyOccupied);
             }
             self.board[idx as usize] = Some(player);

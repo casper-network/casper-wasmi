@@ -120,7 +120,7 @@ mod tests {
     #[test]
     fn locals_u32_overflow() {
         let local_groups = vec![
-            Local::new(u32::max_value(), ValueType::I32),
+            Local::new(u32::MAX, ValueType::I32),
             Local::new(1, ValueType::I64),
         ];
         assert_matches!(Locals::new(&[], &local_groups), Err(_));

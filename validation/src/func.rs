@@ -9,7 +9,6 @@ use crate::{
 };
 
 use casper_wasm::elements::{BlockType, Func, FuncBody, Instruction, TableElementType, ValueType};
-use core::u32;
 
 #[cfg(feature = "sign_ext")]
 use casper_wasm::elements::SignExtInstruction;

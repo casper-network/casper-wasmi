@@ -25,13 +25,13 @@ fn assert_error_properties() {
 fn unsigned_to_value() {
     use casper_wasmi::RuntimeValue;
 
-    let overflow_i32: u32 = ::core::i32::MAX as u32 + 1;
+    let overflow_i32: u32 = i32::MAX as u32 + 1;
     assert_eq!(
         RuntimeValue::from(overflow_i32).try_into::<u32>().unwrap(),
         overflow_i32
     );
 
-    let overflow_i64: u64 = ::core::i64::MAX as u64 + 1;
+    let overflow_i64: u64 = i64::MAX as u64 + 1;
     assert_eq!(
         RuntimeValue::from(overflow_i64).try_into::<u64>().unwrap(),
         overflow_i64

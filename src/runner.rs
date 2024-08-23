@@ -26,7 +26,7 @@ use alloc::{boxed::Box, vec::Vec};
 use casper_wasm::elements::Local;
 #[cfg(feature = "sign_ext")]
 use casper_wasmi_core::SignExtendFrom;
-use core::{fmt, ops, u32, usize};
+use core::{fmt, ops};
 use validation::{DEFAULT_MEMORY_INDEX, DEFAULT_TABLE_INDEX};
 
 /// Maximum number of bytes on the value stack.

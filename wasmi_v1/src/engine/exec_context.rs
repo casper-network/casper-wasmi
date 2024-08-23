@@ -260,6 +260,7 @@ impl<'engine, 'func> FunctionExecutor<'engine, 'func> {
                 Instr::I64Extend16S => { exec_ctx.visit_i64_sign_extend16()?; }
                 Instr::I64Extend32S => { exec_ctx.visit_i64_sign_extend32()?; }
                 Instr::FuncBodyStart { .. } | Instruction::FuncBodyEnd => {
+                    #[allow(unexpected_cfgs)]
                     if cfg!(debug) {
                         unreachable!(
                             "expected start of a new instruction \
@@ -519,6 +520,7 @@ where
         self.next_instr()
     }
 
+    #[allow(clippy::extra_unused_type_parameters)]
     fn execute_reinterpret<T, U>(&mut self) -> Result<(), Trap>
     where
         UntypedValue: From<U>,
@@ -562,7 +564,7 @@ where
     Ctx: AsContextMut,
 {
     fn visit_unreachable(&mut self) -> Result<(), Trap> {
-        Err(TrapCode::Unreachable).map_err(Into::into)
+        Err(Into::into(TrapCode::Unreachable))
     }
 
     fn visit_br(&mut self, target: Target) -> Result<(), Trap> {
@@ -680,7 +682,7 @@ where
                 )
             });
         if actual_signature != expected_signature {
-            return Err(TrapCode::UnexpectedSignature).map_err(Into::into);
+            return Err(Into::into(TrapCode::UnexpectedSignature));
         }
         self.call_func(func)
     }

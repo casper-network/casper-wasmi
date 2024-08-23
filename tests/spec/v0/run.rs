@@ -43,9 +43,13 @@ fn spec_to_value(val: WabtValue<u32, u64>) -> RuntimeValue {
 
 #[derive(Debug)]
 enum Error {
+    #[allow(dead_code)]
     Load(String),
+    #[allow(dead_code)]
     Start(Trap),
+    #[allow(dead_code)]
     Script(script::Error),
+    #[allow(dead_code)]
     Interpreter(InterpreterError),
 }
 
@@ -333,7 +337,7 @@ fn run_action(
                 .module_or_last(module.as_ref().map(|x| x.as_ref()))
                 .unwrap_or_else(|_| panic!("Expected program to have loaded module {:?}", module));
             let global = module
-                .export_by_name(&field)
+                .export_by_name(field)
                 .ok_or_else(|| {
                     InterpreterError::Global(format!("Expected to have export with name {}", field))
                 })?

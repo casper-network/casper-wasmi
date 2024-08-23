@@ -1209,7 +1209,7 @@ impl Sink {
             (Label::Resolved(dst_pc), _) => dst_pc,
             (Label::NotResolved, ref mut unresolved) => {
                 unresolved.push(reloc_creator());
-                u32::max_value()
+                u32::MAX
             }
         }
     }

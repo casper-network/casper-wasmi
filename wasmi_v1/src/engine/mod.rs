@@ -22,7 +22,7 @@ use self::{
 pub use self::{
     bytecode::{DropKeep, Target},
     code_map::FuncBody,
-    func_builder::{FunctionBuilder, InstructionIdx, LabelIdx, RelativeDepth, Reloc},
+    func_builder::{FunctionBuilder, InstructionIdx, LabelIdx, RelativeDepth},
     traits::{CallParams, CallResults},
 };
 use super::{func::FuncEntityInternal, AsContext, AsContextMut, Func};
@@ -303,7 +303,7 @@ impl Engine {
             .code_map
             .resolve(func_body)
             .get(index)
-            .map(Clone::clone)
+            .copied()
     }
 
     /// Executes the given [`Func`] using the given arguments `params` and stores the result into `results`.

@@ -168,7 +168,7 @@ pub fn validate_module<V: Validator>(
             .map(|ts| {
                 ts.types()
                     .iter()
-                    .map(|&Type::Function(ref ty)| ty)
+                    .map(|Type::Function(ty)| ty)
                     .cloned()
                     .collect()
             })
@@ -244,7 +244,7 @@ pub fn validate_module<V: Validator>(
         for (index, function) in function_section.entries().iter().enumerate() {
             let function_body = code_section
                 .bodies()
-                .get(index as usize)
+                .get(index)
                 .ok_or_else(|| Error(format!("Missing body for function {}", index)))?;
             let func_validator_input = validation.func_validator_input();
             let output = func::drive::<V::FuncValidator>(

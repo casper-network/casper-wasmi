@@ -166,7 +166,7 @@ mod tests {
         registry.register_locals(ValueType::F32, 1);
         registry.register_locals(ValueType::F64, 1);
         fn assert_valid_accesses(registry: &mut LocalsRegistry, offset: u32) {
-            assert_eq!(registry.resolve_local(offset + 0), Some(ValueType::I32));
+            assert_eq!(registry.resolve_local(offset), Some(ValueType::I32));
             assert_eq!(registry.resolve_local(offset + 1), Some(ValueType::I64));
             assert_eq!(registry.resolve_local(offset + 2), Some(ValueType::F32));
             assert_eq!(registry.resolve_local(offset + 3), Some(ValueType::F64));
