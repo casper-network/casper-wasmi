@@ -851,7 +851,7 @@ fn dynamically_add_host_func() {
 (module
 	(type $t0 (func (result i32)))
 	(import "env" "add_func" (func $add_func (result i32)))
-	(import "env" "table" (table 10 anyfunc))
+	(import "env" "table" (table 10 funcref))
 	(func (export "test") (result i32)
 		;; Call add_func but discard the result
 		call $add_func
