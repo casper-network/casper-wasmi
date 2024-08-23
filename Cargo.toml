@@ -14,7 +14,7 @@ exclude = [ "/res/*", "/tests/*", "/fuzz/*", "/benches/*" ]
 [dependencies]
 casper-wasmi-core = { version = "0.2.1", path = "core", default-features = false }
 validation = { package = "casper-wasmi-validation", version = "0.5.0", path = "validation", default-features = false }
-casper-wasm = { version = "0.46.0", default-features = false, features = ["sign_ext"] }
+casper-wasm = { version = "0.46.0", default-features = false }
 
 [dev-dependencies]
 assert_matches = "1.5"
@@ -48,6 +48,8 @@ std = [
 virtual_memory = ["casper-wasmi-core/virtual_memory", "std"]
 
 reduced-stack-buffer = [ "casper-wasm/reduced-stack-buffer" ]
+
+sign_ext = ["casper-wasm/sign_ext", "validation/sign_ext" ]
 
 [workspace]
 members = ["validation", "core", "wasmi_v1", "cli"]

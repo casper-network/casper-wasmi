@@ -339,10 +339,15 @@ pub enum Instruction<'a> {
     F32ReinterpretI32,
     F64ReinterpretI64,
 
+    #[cfg(feature = "sign_ext")]
     I32Extend8S,
+    #[cfg(feature = "sign_ext")]
     I32Extend16S,
+    #[cfg(feature = "sign_ext")]
     I64Extend8S,
+    #[cfg(feature = "sign_ext")]
     I64Extend16S,
+    #[cfg(feature = "sign_ext")]
     I64Extend32S,
 }
 
@@ -362,7 +367,9 @@ pub(crate) enum InstructionInternal {
     Br(Target),
     BrIfEqz(Target),
     BrIfNez(Target),
-    BrTable { count: u32 },
+    BrTable {
+        count: u32,
+    },
     BrTableTarget(Target),
 
     Unreachable,
@@ -540,10 +547,15 @@ pub(crate) enum InstructionInternal {
     F32ReinterpretI32,
     F64ReinterpretI64,
 
+    #[cfg(feature = "sign_ext")]
     I32Extend8S,
+    #[cfg(feature = "sign_ext")]
     I32Extend16S,
+    #[cfg(feature = "sign_ext")]
     I64Extend8S,
+    #[cfg(feature = "sign_ext")]
     I64Extend16S,
+    #[cfg(feature = "sign_ext")]
     I64Extend32S,
 }
 
@@ -802,10 +814,15 @@ impl<'a> Iterator for InstructionIter<'a> {
             InstructionInternal::F32ReinterpretI32 => Instruction::F32ReinterpretI32,
             InstructionInternal::F64ReinterpretI64 => Instruction::F64ReinterpretI64,
 
+            #[cfg(feature = "sign_ext")]
             InstructionInternal::I32Extend8S => Instruction::I32Extend8S,
+            #[cfg(feature = "sign_ext")]
             InstructionInternal::I32Extend16S => Instruction::I32Extend16S,
+            #[cfg(feature = "sign_ext")]
             InstructionInternal::I64Extend8S => Instruction::I64Extend8S,
+            #[cfg(feature = "sign_ext")]
             InstructionInternal::I64Extend16S => Instruction::I64Extend16S,
+            #[cfg(feature = "sign_ext")]
             InstructionInternal::I64Extend32S => Instruction::I64Extend32S,
         };
 

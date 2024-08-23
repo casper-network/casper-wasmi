@@ -24,6 +24,7 @@ use crate::{
 };
 use alloc::{boxed::Box, vec::Vec};
 use casper_wasm::elements::Local;
+#[cfg(feature = "sign_ext")]
 use casper_wasmi_core::SignExtendFrom;
 use core::{fmt, ops, u32, usize};
 use validation::{DEFAULT_MEMORY_INDEX, DEFAULT_TABLE_INDEX};
@@ -605,10 +606,15 @@ impl Interpreter {
             isa::Instruction::F32ReinterpretI32 => self.run_reinterpret::<i32, F32>(),
             isa::Instruction::F64ReinterpretI64 => self.run_reinterpret::<i64, F64>(),
 
+            #[cfg(feature = "sign_ext")]
             isa::Instruction::I32Extend8S => self.run_iextend::<i8, i32>(),
+            #[cfg(feature = "sign_ext")]
             isa::Instruction::I32Extend16S => self.run_iextend::<i16, i32>(),
+            #[cfg(feature = "sign_ext")]
             isa::Instruction::I64Extend8S => self.run_iextend::<i8, i64>(),
+            #[cfg(feature = "sign_ext")]
             isa::Instruction::I64Extend16S => self.run_iextend::<i16, i64>(),
+            #[cfg(feature = "sign_ext")]
             isa::Instruction::I64Extend32S => self.run_iextend::<i32, i64>(),
         }
     }
@@ -1271,6 +1277,7 @@ impl Interpreter {
         Ok(InstructionOutcome::RunNextInstruction)
     }
 
+    #[cfg(feature = "sign_ext")]
     fn run_iextend<T, U>(&mut self) -> Result<InstructionOutcome, TrapCode>
     where
         ValueInternal: From<U>,

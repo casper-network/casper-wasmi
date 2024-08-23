@@ -90,11 +90,13 @@ run_test!("utf8-custom-section-id", wasm_utf8_custom_section_id);
 run_test!("utf8-import-field", wasm_utf8_import_field);
 run_test!("utf8-import-module", wasm_utf8_import_module);
 run_test!("utf8-invalid-encoding", wasm_utf8_invalid_encoding);
+#[cfg(feature = "sign_ext")]
 run_proposal_test!(
     "sign-extension-ops",
     "i32",
     wasm_proposal_sign_extension_i32
 );
+#[cfg(feature = "sign_ext")]
 run_proposal_test!(
     "sign-extension-ops",
     "i64",

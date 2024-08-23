@@ -1,6 +1,8 @@
 use alloc::{string::String, vec::Vec};
 
-use casper_wasm::elements::{BlockType, FuncBody, Instruction, SignExtInstruction};
+#[cfg(feature = "sign_ext")]
+use casper_wasm::elements::SignExtInstruction;
+use casper_wasm::elements::{BlockType, FuncBody, Instruction};
 
 use crate::isa;
 use validation::{
@@ -986,6 +988,7 @@ impl Compiler {
                 self.sink.emit(isa::InstructionInternal::F64ReinterpretI64);
             }
 
+            #[cfg(feature = "sign_ext")]
             SignExt(sign_ext_instruction) => match sign_ext_instruction {
                 SignExtInstruction::I32Extend8S => {
                     context.step(instruction)?;

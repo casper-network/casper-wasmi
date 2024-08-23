@@ -16,3 +16,4 @@ assert_matches = "1.1"
 [features]
 default = ["std"]
 std = ["casper-wasm/std"]
+sign_ext = ["casper-wasm/sign_ext"]

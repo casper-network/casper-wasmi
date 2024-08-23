@@ -8,16 +8,11 @@ use crate::{
     DEFAULT_TABLE_INDEX,
 };
 
-use casper_wasm::elements::{
-    BlockType,
-    Func,
-    FuncBody,
-    Instruction,
-    SignExtInstruction,
-    TableElementType,
-    ValueType,
-};
+use casper_wasm::elements::{BlockType, Func, FuncBody, Instruction, TableElementType, ValueType};
 use core::u32;
+
+#[cfg(feature = "sign_ext")]
+use casper_wasm::elements::SignExtInstruction;
 
 /// Maximum number of entries in value stack per function.
 const DEFAULT_VALUE_STACK_LIMIT: usize = 16384;
@@ -791,6 +786,8 @@ impl<'a> FunctionValidationContext<'a> {
             F64ReinterpretI64 => {
                 self.validate_cvtop(ValueType::I64, ValueType::F64)?;
             }
+
+            #[cfg(feature = "sign_ext")]
             SignExt(instruction) => match instruction {
                 SignExtInstruction::I32Extend8S => self.validate_unop(ValueType::I32)?,
                 SignExtInstruction::I32Extend16S => self.validate_unop(ValueType::I32)?,
