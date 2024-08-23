@@ -603,6 +603,12 @@ impl Interpreter {
             isa::Instruction::I64ReinterpretF64 => self.run_reinterpret::<F64, i64>(),
             isa::Instruction::F32ReinterpretI32 => self.run_reinterpret::<i32, F32>(),
             isa::Instruction::F64ReinterpretI64 => self.run_reinterpret::<i64, F64>(),
+
+            isa::Instruction::I32Extend8S => self.run_iextend::<i8, i32>(),
+            isa::Instruction::I32Extend16S => self.run_iextend::<i16, i32>(),
+            isa::Instruction::I64Extend8S => self.run_iextend::<i8, i64>(),
+            isa::Instruction::I64Extend16S => self.run_iextend::<i16, i64>(),
+            isa::Instruction::I64Extend32S => self.run_iextend::<i32, i64>(),
         }
     }
 
@@ -1259,6 +1265,20 @@ impl Interpreter {
         let v = self.value_stack.pop_as::<T>();
 
         let v = v.transmute_into();
+        self.value_stack.push(v.into())?;
+
+        Ok(InstructionOutcome::RunNextInstruction)
+    }
+
+    fn run_iextend<T, U>(&mut self) -> Result<InstructionOutcome, TrapCode>
+    where
+        ValueInternal: From<U>,
+        U: WrapInto<T> + FromValueInternal,
+        T: ExtendInto<U>,
+    {
+        let v = self.value_stack.pop_as::<U>();
+
+        let v = v.wrap_into().extend_into();
         self.value_stack.push(v.into())?;
 
         Ok(InstructionOutcome::RunNextInstruction)
