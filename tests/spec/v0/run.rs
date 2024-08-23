@@ -1,6 +1,7 @@
 #![cfg(test)]
 
 use std::{collections::HashMap, fs::File};
+use wabt::Features;
 
 use casper_wasmi::{
     memory_units::Pages,
@@ -347,13 +348,25 @@ fn run_action(
 }
 
 pub fn spec(name: &str) {
-    println!("running test: {}", name);
-    try_spec(name).expect("Failed to run spec");
+    let script_dir_path = "tests/spec/testsuite";
+    println!("running spec test: {name}");
+    try_spec(name, script_dir_path, Features::new()).expect("Failed to run spec");
 }
 
-fn try_spec(name: &str) -> Result<(), Error> {
+pub fn proposal_spec(proposal: &str, name: &str) {
+    let script_dir_path = format!("tests/spec/testsuite/proposals/{proposal}");
+    println!("running proposal spec test: {proposal}/{name}");
+    let mut features = Features::new();
+    match proposal {
+        "sign-extension-ops" => features.enable_sign_extension(),
+        _ => panic!("unsupported proposal {proposal}"),
+    }
+    try_spec(name, &script_dir_path, features).expect("Failed to run spec");
+}
+
+fn try_spec(name: &str, script_dir_path: &str, features: Features) -> Result<(), Error> {
     let mut spec_driver = SpecDriver::new();
-    let spec_script_path = format!("tests/spec/testsuite/{}.wast", name);
+    let spec_script_path = format!("{script_dir_path}/{name}.wast");
 
     use std::io::Read;
     let mut spec_source = Vec::new();
@@ -362,8 +375,12 @@ fn try_spec(name: &str) -> Result<(), Error> {
         .read_to_end(&mut spec_source)
         .expect("Can't read file");
 
-    let mut parser = ScriptParser::from_source_and_name(&spec_source, &format!("{}.wast", name))
-        .expect("Can't read spec script");
+    let mut parser = ScriptParser::from_source_and_name_with_features(
+        &spec_source,
+        &format!("{}.wast", name),
+        features,
+    )
+    .expect("Can't read spec script");
     let mut errors = vec![];
 
     while let Some(Command { kind, line }) = parser.next()? {
