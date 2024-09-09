@@ -107,7 +107,7 @@ fn interpreter_inc_i32() {
     // Name of function contained in WASM file (note the leading underline)
     const FUNCTION_NAME: &str = "_inc_i32";
     // The WASM file containing the module and function
-    const WASM_FILE: &str = &"tests/e2e/wat/inc_i32.wast";
+    const WASM_FILE: &str = "tests/e2e/wat/inc_i32.wast";
 
     let module = load_from_file(WASM_FILE);
 
@@ -133,7 +133,7 @@ fn interpreter_accumulate_u8() {
     // Name of function contained in WASM file (note the leading underline)
     const FUNCTION_NAME: &str = "_accumulate_u8";
     // The WASM file containing the module and function
-    const WASM_FILE: &str = &"tests/e2e/wat/accumulate_u8.wast";
+    const WASM_FILE: &str = "tests/e2e/wat/accumulate_u8.wast";
     // The octet sequence being accumulated
     const BUF: &[u8] = &[9, 8, 7, 6, 5, 4, 3, 2, 1];
 

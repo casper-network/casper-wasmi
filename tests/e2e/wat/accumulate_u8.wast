@@ -16,7 +16,7 @@
  (type $1 (func))
  (import "env" "memoryBase" (global $import$0 i32))
  (import "env" "memory" (memory $0 256))
- (import "env" "table" (table 0 anyfunc))
+ (import "env" "table" (table 0 funcref))
  (import "env" "tableBase" (global $import$3 i32))
  (global $global$0 (mut i32) (i32.const 0))
  (global $global$1 (mut i32) (i32.const 0))

@@ -28,8 +28,8 @@ impl ByteBuf {
 
     /// Creates a new byte buffer with the given initial length.
     pub fn new(len: usize) -> Result<Self, String> {
-        if len > isize::max_value() as usize {
-            return Err("`len` should not exceed `isize::max_value()`".into());
+        if len > isize::MAX as usize {
+            return Err("`len` should not exceed `isize::MAX`".into());
         }
         let mem = VirtualMemory::new(Self::ALLOCATION_SIZE).map_err(|error| error.to_string())?;
         Ok(Self { mem, len })

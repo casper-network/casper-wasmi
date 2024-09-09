@@ -369,7 +369,7 @@ impl<T> Linker<T> {
                         .ok_or_else(|| LinkerError::cannot_find_definition_of_import(&import))?;
                     let actual_func_type = func.signature(&context);
                     if &actual_func_type != expected_func_type {
-                        return Err(LinkerError::FuncTypeMismatch {
+                        return Err(Into::into(LinkerError::FuncTypeMismatch {
                             name: import.name().clone(),
                             expected: context
                                 .as_context()
@@ -379,8 +379,7 @@ impl<T> Linker<T> {
                                 .as_context()
                                 .store
                                 .resolve_func_type(actual_func_type),
-                        })
-                        .map_err(Into::into);
+                        }));
                     }
                     Extern::Func(func)
                 }
@@ -409,12 +408,11 @@ impl<T> Linker<T> {
                         .ok_or_else(|| LinkerError::cannot_find_definition_of_import(&import))?;
                     let actual_global_type = global.global_type(context.as_context());
                     if &actual_global_type != expected_global_type {
-                        return Err(LinkerError::GlobalTypeMismatch {
+                        return Err(Into::into(LinkerError::GlobalTypeMismatch {
                             name: import.name().clone(),
                             expected: *expected_global_type,
                             actual: actual_global_type,
-                        })
-                        .map_err(Into::into);
+                        }));
                     }
                     Extern::Global(global)
                 }

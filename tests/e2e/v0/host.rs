@@ -305,7 +305,7 @@ fn resume_call_host_func() {
     let export = instance.export_by_name("test").unwrap();
     let func_instance = export.as_func().unwrap();
 
-    let mut invocation = FuncInstance::invoke_resumable(&func_instance, &[][..]).unwrap();
+    let mut invocation = FuncInstance::invoke_resumable(func_instance, &[][..]).unwrap();
     let result = invocation.start_execution(&mut env);
     match result {
         Err(ResumableError::Trap(_)) => {}
@@ -350,7 +350,7 @@ fn resume_call_host_func_type_mismatch() {
         let export = instance.export_by_name("test").unwrap();
         let func_instance = export.as_func().unwrap();
 
-        let mut invocation = FuncInstance::invoke_resumable(&func_instance, &[][..]).unwrap();
+        let mut invocation = FuncInstance::invoke_resumable(func_instance, &[][..]).unwrap();
         let result = invocation.start_execution(&mut env);
         match result {
             Err(ResumableError::Trap(_)) => {}
@@ -565,7 +565,7 @@ fn defer_providing_externals() {
                     field_name
                 )));
             }
-            if signature.params() != [ValueType::I32] || signature.return_type() != None {
+            if signature.params() != [ValueType::I32] || signature.return_type().is_some() {
                 return Err(Error::Instantiation(format!(
                     "Export `{}` doesnt match expected type {:?}",
                     field_name, signature
@@ -851,7 +851,7 @@ fn dynamically_add_host_func() {
 (module
 	(type $t0 (func (result i32)))
 	(import "env" "add_func" (func $add_func (result i32)))
-	(import "env" "table" (table 10 anyfunc))
+	(import "env" "table" (table 10 funcref))
 	(func (export "test") (result i32)
 		;; Call add_func but discard the result
 		call $add_func

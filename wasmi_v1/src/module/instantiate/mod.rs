@@ -347,12 +347,11 @@ impl Module {
             let len_table = table.len(&context);
             let len_items = element_segment.items().len();
             if offset + len_items > len_table {
-                return Err(InstantiationError::ElementSegmentDoesNotFit {
+                return Err(Into::into(InstantiationError::ElementSegmentDoesNotFit {
                     table,
                     offset,
                     amount: len_items,
-                })
-                .map_err(Into::into);
+                }));
             }
             // Finally do the actual initialization of the table elements.
             for (i, func_index) in element_segment.items().iter().enumerate() {

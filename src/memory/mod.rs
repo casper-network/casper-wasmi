@@ -10,7 +10,6 @@ use core::{
     cmp,
     fmt,
     ops::Range,
-    u32,
 };
 
 #[cfg(all(feature = "virtual_memory", target_pointer_width = "64"))]

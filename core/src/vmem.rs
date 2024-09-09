@@ -75,7 +75,7 @@ impl VirtualMemory {
     ///
     /// # Errors
     ///
-    /// - If `len` should not exceed `isize::max_value()`
+    /// - If `len` should not exceed `isize::MAX`
     /// - If `len` should be greater than 0.
     /// - If the operating system returns an error upon virtual memory allocation.
     pub fn new(len: usize) -> Result<Self, VirtualMemoryError> {

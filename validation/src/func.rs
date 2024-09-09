@@ -9,7 +9,9 @@ use crate::{
 };
 
 use casper_wasm::elements::{BlockType, Func, FuncBody, Instruction, TableElementType, ValueType};
-use core::u32;
+
+#[cfg(feature = "sign_ext")]
+use casper_wasm::elements::SignExtInstruction;
 
 /// Maximum number of entries in value stack per function.
 const DEFAULT_VALUE_STACK_LIMIT: usize = 16384;
@@ -171,7 +173,7 @@ impl<'a> FunctionValidationContext<'a> {
     pub fn step(&mut self, instruction: &Instruction) -> Result<(), Error> {
         use self::Instruction::*;
 
-        match *instruction {
+        match instruction {
             // Nop instruction doesn't do anything. It is safe to just skip it.
             Nop => {}
 
@@ -182,7 +184,7 @@ impl<'a> FunctionValidationContext<'a> {
             Block(block_type) => {
                 push_label(
                     StartedWith::Block,
-                    block_type,
+                    *block_type,
                     &self.value_stack,
                     &mut self.frame_stack,
                 )?;
@@ -190,7 +192,7 @@ impl<'a> FunctionValidationContext<'a> {
             Loop(block_type) => {
                 push_label(
                     StartedWith::Loop,
-                    block_type,
+                    *block_type,
                     &self.value_stack,
                     &mut self.frame_stack,
                 )?;
@@ -203,7 +205,7 @@ impl<'a> FunctionValidationContext<'a> {
                 )?;
                 push_label(
                     StartedWith::If,
-                    block_type,
+                    *block_type,
                     &self.value_stack,
                     &mut self.frame_stack,
                 )?;
@@ -267,11 +269,11 @@ impl<'a> FunctionValidationContext<'a> {
                 }
             }
             Br(depth) => {
-                self.validate_br(depth)?;
+                self.validate_br(*depth)?;
                 make_top_frame_polymorphic(&mut self.value_stack, &mut self.frame_stack);
             }
             BrIf(depth) => {
-                self.validate_br_if(depth)?;
+                self.validate_br_if(*depth)?;
             }
             BrTable(ref br_table_data) => {
                 self.validate_br_table(&br_table_data.table, br_table_data.default)?;
@@ -285,10 +287,10 @@ impl<'a> FunctionValidationContext<'a> {
             }
 
             Call(index) => {
-                self.validate_call(index)?;
+                self.validate_call(*index)?;
             }
             CallIndirect(index, _reserved) => {
-                self.validate_call_indirect(index)?;
+                self.validate_call_indirect(*index)?;
             }
 
             Drop => {
@@ -299,90 +301,90 @@ impl<'a> FunctionValidationContext<'a> {
             }
 
             GetLocal(index) => {
-                self.validate_get_local(index)?;
+                self.validate_get_local(*index)?;
             }
             SetLocal(index) => {
-                self.validate_set_local(index)?;
+                self.validate_set_local(*index)?;
             }
             TeeLocal(index) => {
-                self.validate_tee_local(index)?;
+                self.validate_tee_local(*index)?;
             }
             GetGlobal(index) => {
-                self.validate_get_global(index)?;
+                self.validate_get_global(*index)?;
             }
             SetGlobal(index) => {
-                self.validate_set_global(index)?;
+                self.validate_set_global(*index)?;
             }
 
             I32Load(align, _) => {
-                self.validate_load(align, 4, ValueType::I32)?;
+                self.validate_load(*align, 4, ValueType::I32)?;
             }
             I64Load(align, _) => {
-                self.validate_load(align, 8, ValueType::I64)?;
+                self.validate_load(*align, 8, ValueType::I64)?;
             }
             F32Load(align, _) => {
-                self.validate_load(align, 4, ValueType::F32)?;
+                self.validate_load(*align, 4, ValueType::F32)?;
             }
             F64Load(align, _) => {
-                self.validate_load(align, 8, ValueType::F64)?;
+                self.validate_load(*align, 8, ValueType::F64)?;
             }
             I32Load8S(align, _) => {
-                self.validate_load(align, 1, ValueType::I32)?;
+                self.validate_load(*align, 1, ValueType::I32)?;
             }
             I32Load8U(align, _) => {
-                self.validate_load(align, 1, ValueType::I32)?;
+                self.validate_load(*align, 1, ValueType::I32)?;
             }
             I32Load16S(align, _) => {
-                self.validate_load(align, 2, ValueType::I32)?;
+                self.validate_load(*align, 2, ValueType::I32)?;
             }
             I32Load16U(align, _) => {
-                self.validate_load(align, 2, ValueType::I32)?;
+                self.validate_load(*align, 2, ValueType::I32)?;
             }
             I64Load8S(align, _) => {
-                self.validate_load(align, 1, ValueType::I64)?;
+                self.validate_load(*align, 1, ValueType::I64)?;
             }
             I64Load8U(align, _) => {
-                self.validate_load(align, 1, ValueType::I64)?;
+                self.validate_load(*align, 1, ValueType::I64)?;
             }
             I64Load16S(align, _) => {
-                self.validate_load(align, 2, ValueType::I64)?;
+                self.validate_load(*align, 2, ValueType::I64)?;
             }
             I64Load16U(align, _) => {
-                self.validate_load(align, 2, ValueType::I64)?;
+                self.validate_load(*align, 2, ValueType::I64)?;
             }
             I64Load32S(align, _) => {
-                self.validate_load(align, 4, ValueType::I64)?;
+                self.validate_load(*align, 4, ValueType::I64)?;
             }
             I64Load32U(align, _) => {
-                self.validate_load(align, 4, ValueType::I64)?;
+                self.validate_load(*align, 4, ValueType::I64)?;
             }
 
             I32Store(align, _) => {
-                self.validate_store(align, 4, ValueType::I32)?;
+                self.validate_store(*align, 4, ValueType::I32)?;
             }
             I64Store(align, _) => {
-                self.validate_store(align, 8, ValueType::I64)?;
+                self.validate_store(*align, 8, ValueType::I64)?;
             }
             F32Store(align, _) => {
-                self.validate_store(align, 4, ValueType::F32)?;
+                self.validate_store(*align, 4, ValueType::F32)?;
             }
             F64Store(align, _) => {
-                self.validate_store(align, 8, ValueType::F64)?;
+                self.validate_store(*align, 8, ValueType::F64)?;
             }
             I32Store8(align, _) => {
-                self.validate_store(align, 1, ValueType::I32)?;
+                self.validate_store(*align, 1, ValueType::I32)?;
             }
             I32Store16(align, _) => {
-                self.validate_store(align, 2, ValueType::I32)?;
+                self.validate_store(*align, 2, ValueType::I32)?;
             }
             I64Store8(align, _) => {
-                self.validate_store(align, 1, ValueType::I64)?;
+                self.validate_store(*align, 1, ValueType::I64)?;
             }
             I64Store16(align, _) => {
-                self.validate_store(align, 2, ValueType::I64)?;
+                self.validate_store(*align, 2, ValueType::I64)?;
             }
             I64Store32(align, _) => {
-                self.validate_store(align, 4, ValueType::I64)?;
+                self.validate_store(*align, 4, ValueType::I64)?;
             }
 
             CurrentMemory(_) => {
@@ -783,6 +785,15 @@ impl<'a> FunctionValidationContext<'a> {
             F64ReinterpretI64 => {
                 self.validate_cvtop(ValueType::I64, ValueType::F64)?;
             }
+
+            #[cfg(feature = "sign_ext")]
+            SignExt(instruction) => match instruction {
+                SignExtInstruction::I32Extend8S => self.validate_unop(ValueType::I32)?,
+                SignExtInstruction::I32Extend16S => self.validate_unop(ValueType::I32)?,
+                SignExtInstruction::I64Extend8S => self.validate_unop(ValueType::I64)?,
+                SignExtInstruction::I64Extend16S => self.validate_unop(ValueType::I64)?,
+                SignExtInstruction::I64Extend32S => self.validate_unop(ValueType::I64)?,
+            },
         }
 
         Ok(())

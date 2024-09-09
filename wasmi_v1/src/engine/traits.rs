@@ -21,6 +21,7 @@ pub trait CallParams {
     /// Used by the [`Engine`] to determine how many parameters are received.
     ///
     /// [`Engine`]: [`crate::Engine`]
+    #[allow(dead_code)]
     fn len_params(&self) -> usize;
 
     /// Feeds the parameter values from the caller.

@@ -303,8 +303,6 @@ pub(crate) mod value {
         LittleEndianConvert,
         TransmuteInto,
         TryTruncateInto,
-        Value as RuntimeValue,
-        ValueType,
         WrapInto,
     };
 }

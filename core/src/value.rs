@@ -2,7 +2,7 @@ use crate::{
     nan_preserving_float::{F32, F64},
     TrapCode,
 };
-use core::{f32, fmt, fmt::Display, i32, i64, u32, u64};
+use core::{f32, fmt, fmt::Display};
 
 /// Type of a value.
 ///
@@ -400,8 +400,8 @@ impl FromValue for bool {
 impl FromValue for i8 {
     #[inline]
     fn from_value(val: Value) -> Option<Self> {
-        let min = i8::min_value() as i32;
-        let max = i8::max_value() as i32;
+        let min = i8::MIN as i32;
+        let max = i8::MAX as i32;
         match val {
             Value::I32(val) if min <= val && val <= max => Some(val as i8),
             _ => None,
@@ -415,8 +415,8 @@ impl FromValue for i8 {
 impl FromValue for i16 {
     #[inline]
     fn from_value(val: Value) -> Option<Self> {
-        let min = i16::min_value() as i32;
-        let max = i16::max_value() as i32;
+        let min = i16::MIN as i32;
+        let max = i16::MAX as i32;
         match val {
             Value::I32(val) if min <= val && val <= max => Some(val as i16),
             _ => None,
@@ -430,8 +430,8 @@ impl FromValue for i16 {
 impl FromValue for u8 {
     #[inline]
     fn from_value(val: Value) -> Option<Self> {
-        let min = u8::min_value() as i32;
-        let max = u8::max_value() as i32;
+        let min = u8::MIN as i32;
+        let max = u8::MAX as i32;
         match val {
             Value::I32(val) if min <= val && val <= max => Some(val as u8),
             _ => None,
@@ -445,8 +445,8 @@ impl FromValue for u8 {
 impl FromValue for u16 {
     #[inline]
     fn from_value(val: Value) -> Option<Self> {
-        let min = u16::min_value() as i32;
-        let max = u16::max_value() as i32;
+        let min = u16::MIN as i32;
+        let max = u16::MAX as i32;
         match val {
             Value::I32(val) if min <= val && val <= max => Some(val as u16),
             _ => None,

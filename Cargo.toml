@@ -49,6 +49,8 @@ virtual_memory = ["casper-wasmi-core/virtual_memory", "std"]
 
 reduced-stack-buffer = [ "casper-wasm/reduced-stack-buffer" ]
 
+sign_ext = ["casper-wasm/sign_ext", "validation/sign_ext" ]
+
 [workspace]
 members = ["validation", "core", "wasmi_v1", "cli"]
 exclude = []

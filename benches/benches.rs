@@ -898,7 +898,7 @@ fn bench_execute_memory_fill_v1(c: &mut Criterion) {
         });
         assert!(mem.data(&store)[ptr..(ptr + len)]
             .iter()
-            .all(|byte| (*byte as u8) == value));
+            .all(|byte| { *byte } == value));
     });
 }
 

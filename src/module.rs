@@ -241,7 +241,7 @@ impl ModuleInstance {
         let module = loaded_module.module();
         let instance = ModuleRef(Rc::new(ModuleInstance::default()));
 
-        for &Type::Function(ref ty) in module.type_section().map(|ts| ts.types()).unwrap_or(&[]) {
+        for Type::Function(ty) in module.type_section().map(|ts| ts.types()).unwrap_or(&[]) {
             let signature = Rc::new(Signature::from_elements(ty));
             instance.push_signature(signature);
         }
@@ -268,7 +268,7 @@ impl ModuleInstance {
                 };
 
                 match (import.external(), extern_val) {
-                    (&External::Function(fn_type_idx), &ExternVal::Func(ref func)) => {
+                    (&External::Function(fn_type_idx), ExternVal::Func(func)) => {
                         let expected_fn_type = instance
                             .signature_by_index(fn_type_idx)
                             .expect("Due to validation function type should exists");
@@ -283,15 +283,15 @@ impl ModuleInstance {
                         }
                         instance.push_func(func.clone())
                     }
-                    (&External::Table(ref tt), &ExternVal::Table(ref table)) => {
+                    (External::Table(tt), ExternVal::Table(table)) => {
                         match_limits(table.limits(), tt.limits())?;
                         instance.push_table(table.clone());
                     }
-                    (&External::Memory(ref mt), &ExternVal::Memory(ref memory)) => {
+                    (External::Memory(mt), ExternVal::Memory(memory)) => {
                         match_limits(memory.limits(), mt.limits())?;
                         instance.push_memory(memory.clone());
                     }
-                    (&External::Global(ref gl), &ExternVal::Global(ref global)) => {
+                    (External::Global(gl), ExternVal::Global(global)) => {
                         if gl.content_type() != global.elements_value_type() {
                             return Err(Error::Instantiation(format!(
                                 "Expect global with {:?} type, but provided global with {:?} type",
@@ -554,7 +554,7 @@ impl ModuleInstance {
             let extern_val = match *import_entry.external() {
                 External::Function(fn_ty_idx) => {
                     let types = module.type_section().map(|s| s.types()).unwrap_or(&[]);
-                    let &Type::Function(ref func_type) = types
+                    let Type::Function(func_type) = types
                         .get(fn_ty_idx as usize)
                         .expect("Due to validation functions should have valid types");
                     let signature = Signature::from_elements(func_type);

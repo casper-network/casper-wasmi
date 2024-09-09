@@ -298,10 +298,10 @@ impl Func {
         let (expected_inputs, expected_outputs) = func_type.params_results();
         let actual_inputs = inputs.iter().map(|value| value.value_type());
         if expected_inputs.iter().copied().ne(actual_inputs) {
-            return Err(FuncError::MismatchingParameters { func: *self }).map_err(Into::into);
+            return Err(Into::into(FuncError::MismatchingParameters { func: *self }));
         }
         if expected_outputs.len() != outputs.len() {
-            return Err(FuncError::MismatchingResults { func: *self }).map_err(Into::into);
+            return Err(Into::into(FuncError::MismatchingResults { func: *self }));
         }
         // Note: Cloning an [`Engine`] is intentionally a cheap operation.
         ctx.as_context().store.engine().clone().execute_func(
