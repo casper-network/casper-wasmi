@@ -5,6 +5,8 @@ mod utils;
 #[cfg(test)]
 mod tests;
 
+use crate::module::TableIdx;
+
 pub use self::utils::{DropKeep, FuncIdx, GlobalIdx, LocalIdx, Offset, SignatureIdx, Target};
 use casper_wasmi_core::UntypedValue;
 
@@ -37,7 +39,7 @@ pub enum Instruction {
     Unreachable,
     Return(DropKeep),
     Call(FuncIdx),
-    CallIndirect(SignatureIdx),
+    CallIndirect(SignatureIdx, TableIdx),
     Drop,
     Select,
     GetGlobal(GlobalIdx),

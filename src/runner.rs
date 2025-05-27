@@ -403,7 +403,7 @@ impl Interpreter {
             isa::Instruction::Return(drop_keep) => self.run_return(*drop_keep),
 
             isa::Instruction::Call(index) => self.run_call(context, *index),
-            isa::Instruction::CallIndirect(index) => self.run_call_indirect(context, *index),
+            isa::Instruction::CallIndirect(index, table) => self.run_call_indirect(context, *index, *table),
 
             isa::Instruction::Drop => self.run_drop(),
             isa::Instruction::Select => self.run_select(),
@@ -680,25 +680,32 @@ impl Interpreter {
         &mut self,
         context: &mut FunctionContext,
         signature_idx: u32,
+        table_idx: u32,
     ) -> Result<InstructionOutcome, TrapCode> {
         let table_func_idx: u32 = self.value_stack.pop_as();
+        #[cfg(feature = "call_indirect_overlong")]
+        let table = context
+            .module()
+            .table_by_index(table_idx)
+            .ok_or(TrapCode::Unreachable)?;
+        #[cfg(not(feature = "call_indirect_overlong"))]
         let table = context
             .module()
             .table_by_index(DEFAULT_TABLE_INDEX)
-            .expect("Due to validation table should exists");
+            .ok_or(TrapCode::Unreachable)?;
         let func_ref = table
             .get(table_func_idx)
             .map_err(|_| TrapCode::TableAccessOutOfBounds)?
             .ok_or(TrapCode::ElemUninitialized)?;
 
         {
-            let actual_function_type = func_ref.signature();
-            let required_function_type = context
+            let actual_signature = func_ref.signature();
+            let expected_signature = context
                 .module()
                 .signature_by_index(signature_idx)
                 .expect("Due to validation type should exists");
 
-            if &*required_function_type != actual_function_type {
+            if &*expected_signature != actual_signature {
                 return Err(TrapCode::UnexpectedSignature);
             }
         }

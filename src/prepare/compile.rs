@@ -316,10 +316,10 @@ impl Compiler {
                 context.step(instruction)?;
                 self.sink.emit(isa::InstructionInternal::Call(*index));
             }
-            CallIndirect(index, _reserved) => {
+            CallIndirect(index, table) => {
                 context.step(instruction)?;
                 self.sink
-                    .emit(isa::InstructionInternal::CallIndirect(*index));
+                    .emit(isa::InstructionInternal::CallIndirect(*index, *table));
             }
 
             Drop => {

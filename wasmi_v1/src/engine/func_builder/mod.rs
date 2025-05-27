@@ -22,7 +22,7 @@ use self::{
 };
 use super::{DropKeep, FuncBody, Instruction, Target};
 use crate::{
-    engine::bytecode::Offset,
+    engine::bytecode::{Offset, SignatureIdx},
     module::{
         BlockType,
         FuncIdx,
@@ -640,20 +640,21 @@ impl<'engine, 'parser> FunctionBuilder<'engine, 'parser> {
     pub fn translate_call_indirect(
         &mut self,
         func_type_idx: FuncTypeIdx,
-        table_idx: TableIdx,
+        table_index: TableIdx,
     ) -> Result<(), ModuleError> {
         self.translate_if_reachable(|builder| {
-            /// The default Wasm MVP table index.
-            const DEFAULT_TABLE_INDEX: u32 = 0;
-            assert_eq!(table_idx.into_u32(), DEFAULT_TABLE_INDEX);
-            let func_type_offset = builder.value_stack.pop1();
-            debug_assert_eq!(func_type_offset, ValueType::I32);
+            let func_type_index = func_type_idx.into_u32().into();
+            let table = TableIdx::from(table_index);
+            builder.value_stack.pop1();
             let func_type = builder.func_type_at(func_type_idx);
             builder.adjust_value_stack_for_call(&func_type);
-            let func_type_idx = func_type_idx.into_u32().into();
             builder
                 .inst_builder
-                .push_inst(Instruction::CallIndirect(func_type_idx));
+                .push_inst(Instruction::CallIndirect(
+                    func_type_index,
+                    table
+                )
+            );
             Ok(())
         })
     }

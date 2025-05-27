@@ -168,7 +168,7 @@ pub enum Instruction<'a> {
     Return(DropKeep),
 
     Call(u32),
-    CallIndirect(u32),
+    CallIndirect(u32, u32),
 
     Drop,
     Select,
@@ -376,7 +376,7 @@ pub(crate) enum InstructionInternal {
     Return(DropKeep),
 
     Call(u32),
-    CallIndirect(u32),
+    CallIndirect(u32, u32),
 
     Drop,
     Select,
@@ -643,7 +643,7 @@ impl<'a> Iterator for InstructionIter<'a> {
             InstructionInternal::Return(x) => Instruction::Return(x),
 
             InstructionInternal::Call(x) => Instruction::Call(x),
-            InstructionInternal::CallIndirect(x) => Instruction::CallIndirect(x),
+            InstructionInternal::CallIndirect(x, y) => Instruction::CallIndirect(x, y),
 
             InstructionInternal::Drop => Instruction::Drop,
             InstructionInternal::Select => Instruction::Select,

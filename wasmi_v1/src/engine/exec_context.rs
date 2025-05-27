@@ -90,7 +90,7 @@ impl<'engine, 'func> FunctionExecutor<'engine, 'func> {
                 Instr::Call(func) => {
                     return exec_ctx.visit_call(*func)
                 }
-                Instr::CallIndirect(signature)  => {
+                Instr::CallIndirect(signature, _table)  => {
                     return exec_ctx.visit_call_indirect(*signature)
                 }
                 Instr::Drop => { exec_ctx.visit_drop()?; }

@@ -17,3 +17,4 @@ assert_matches = "1.1"
 default = ["std"]
 std = ["casper-wasm/std"]
 sign_ext = ["casper-wasm/sign_ext"]
+call_indirect_overlong = ["casper-wasm/call_indirect_overlong"]
