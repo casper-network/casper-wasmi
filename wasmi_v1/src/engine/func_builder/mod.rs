@@ -645,7 +645,8 @@ impl<'engine, 'parser> FunctionBuilder<'engine, 'parser> {
         self.translate_if_reachable(|builder| {
             let func_type_index = func_type_idx.into_u32().into();
             let table = TableIdx::from(table_index);
-            builder.value_stack.pop1();
+            let func_type_offset = builder.value_stack.pop1();
+            debug_assert_eq!(func_type_offset, ValueType::I32);
             let func_type = builder.func_type_at(func_type_idx);
             builder.adjust_value_stack_for_call(&func_type);
             builder
