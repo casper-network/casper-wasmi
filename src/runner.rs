@@ -403,7 +403,9 @@ impl Interpreter {
             isa::Instruction::Return(drop_keep) => self.run_return(*drop_keep),
 
             isa::Instruction::Call(index) => self.run_call(context, *index),
-            isa::Instruction::CallIndirect(index, table) => self.run_call_indirect(context, *index, *table),
+            isa::Instruction::CallIndirect(index, table) => {
+                self.run_call_indirect(context, *index, *table)
+            }
 
             isa::Instruction::Drop => self.run_drop(),
             isa::Instruction::Select => self.run_select(),
@@ -816,9 +818,7 @@ impl Interpreter {
             .map_err(|_| TrapCode::MemoryAccessOutOfBounds)?;
         let stack_value: U = v.extend_into();
         self.value_stack
-            .push(stack_value.into())
-            .map_err(Into::into)
-            .map(|_| InstructionOutcome::RunNextInstruction)
+            .push(stack_value.into()).map(|_| InstructionOutcome::RunNextInstruction)
     }
 
     fn run_store<T>(
@@ -894,9 +894,7 @@ impl Interpreter {
 
     fn run_const(&mut self, val: RuntimeValue) -> Result<InstructionOutcome, TrapCode> {
         self.value_stack
-            .push(val.into())
-            .map_err(Into::into)
-            .map(|_| InstructionOutcome::RunNextInstruction)
+            .push(val.into()).map(|_| InstructionOutcome::RunNextInstruction)
     }
 
     fn run_relop<T, F>(&mut self, f: F) -> Result<InstructionOutcome, TrapCode>

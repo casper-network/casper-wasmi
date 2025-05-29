@@ -650,11 +650,7 @@ impl<'engine, 'parser> FunctionBuilder<'engine, 'parser> {
             builder.adjust_value_stack_for_call(&func_type);
             builder
                 .inst_builder
-                .push_inst(Instruction::CallIndirect(
-                    func_type_index,
-                    table
-                )
-            );
+                .push_inst(Instruction::CallIndirect(func_type_index, table));
             Ok(())
         })
     }

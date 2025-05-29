@@ -1052,10 +1052,10 @@ impl<'a> FunctionValidationContext<'a> {
         Ok(())
     }
 
-    fn validate_call_indirect(&mut self, idx: u32, table: u32) -> Result<(), Error> {
+    fn validate_call_indirect(&mut self, idx: u32, _table: u32) -> Result<(), Error> {
         {
             #[cfg(feature = "call_indirect_overlong")]
-            let table = self.module.require_table(table)?;
+            let table = self.module.require_table(_table)?;
 
             #[cfg(not(feature = "call_indirect_overlong"))]
             let table = self.module.require_table(DEFAULT_TABLE_INDEX)?;
