@@ -268,7 +268,7 @@ enum FuncInvocationKind<'args> {
     },
 }
 
-impl<'args> FuncInvocation<'args> {
+impl FuncInvocation<'_> {
     /// Whether this invocation is currently resumable.
     pub fn is_resumable(&self) -> bool {
         match &self.kind {

@@ -607,7 +607,7 @@ pub struct InstructionIter<'a> {
     position: u32,
 }
 
-impl<'a> InstructionIter<'a> {
+impl InstructionIter<'_> {
     #[inline]
     pub fn position(&self) -> u32 {
         self.position

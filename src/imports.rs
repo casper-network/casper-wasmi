@@ -105,7 +105,7 @@ pub struct ImportsBuilder<'a> {
     modules: BTreeMap<String, &'a dyn ModuleImportResolver>,
 }
 
-impl<'a> Default for ImportsBuilder<'a> {
+impl Default for ImportsBuilder<'_> {
     fn default() -> Self {
         Self::new()
     }
@@ -146,7 +146,7 @@ impl<'a> ImportsBuilder<'a> {
     }
 }
 
-impl<'a> ImportResolver for ImportsBuilder<'a> {
+impl ImportResolver for ImportsBuilder<'_> {
     fn resolve_func(
         &self,
         module_name: &str,

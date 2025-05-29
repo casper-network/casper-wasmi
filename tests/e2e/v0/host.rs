@@ -597,7 +597,7 @@ fn defer_providing_externals() {
         acc: &'a mut u32,
     }
 
-    impl<'a> Externals for HostExternals<'a> {
+    impl Externals for HostExternals<'_> {
         fn invoke_index(
             &mut self,
             index: usize,
