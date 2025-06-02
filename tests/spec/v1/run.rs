@@ -315,9 +315,7 @@ fn execute_wast_execute(
     execute: WastExecute,
 ) -> Result<Vec<Value>, TestError> {
     match execute {
-        WastExecute::Invoke(invoke) => {
-            execute_wast_invoke(context, span, invoke).map_err(Into::into)
-        }
+        WastExecute::Invoke(invoke) => execute_wast_invoke(context, span, invoke),
         WastExecute::Wat(Wat::Module(module)) => {
             context.compile_and_instantiate(module).map(|_| Vec::new())
         }

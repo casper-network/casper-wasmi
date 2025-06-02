@@ -289,8 +289,8 @@ impl<'a> FunctionValidationContext<'a> {
             Call(index) => {
                 self.validate_call(*index)?;
             }
-            CallIndirect(index, _reserved) => {
-                self.validate_call_indirect(*index)?;
+            CallIndirect(index, table) => {
+                self.validate_call_indirect(*index, *table)?;
             }
 
             Drop => {
@@ -1052,9 +1052,14 @@ impl<'a> FunctionValidationContext<'a> {
         Ok(())
     }
 
-    fn validate_call_indirect(&mut self, idx: u32) -> Result<(), Error> {
+    fn validate_call_indirect(&mut self, idx: u32, _table: u32) -> Result<(), Error> {
         {
+            #[cfg(feature = "call_indirect_overlong")]
+            let table = self.module.require_table(_table)?;
+
+            #[cfg(not(feature = "call_indirect_overlong"))]
             let table = self.module.require_table(DEFAULT_TABLE_INDEX)?;
+
             if table.elem_type() != TableElementType::AnyFunc {
                 return Err(Error(format!(
                     "Table {} has element type {:?} while `anyfunc` expected",

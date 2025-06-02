@@ -710,7 +710,7 @@ pub struct NotStartedModuleRef<'a> {
     instance: ModuleRef,
 }
 
-impl<'a> NotStartedModuleRef<'a> {
+impl NotStartedModuleRef<'_> {
     /// Returns not fully initialized instance.
     ///
     /// To fully initialize the instance you need to call either [`run_start`] or

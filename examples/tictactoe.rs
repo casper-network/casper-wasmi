@@ -146,7 +146,7 @@ struct Runtime<'a> {
 const SET_FUNC_INDEX: usize = 0;
 const GET_FUNC_INDEX: usize = 1;
 
-impl<'a> Externals for Runtime<'a> {
+impl Externals for Runtime<'_> {
     fn invoke_index(
         &mut self,
         index: usize,

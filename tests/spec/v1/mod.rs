@@ -116,6 +116,7 @@ mod multi_value {
 define_spec_tests! {
     fn wasm_address("address");
     fn wasm_align("align");
+    #[cfg(not(feature = "call_indirect_overlong"))]
     fn wasm_binary("binary");
     fn wasm_binary_leb128("binary-leb128");
     fn wasm_block("block");

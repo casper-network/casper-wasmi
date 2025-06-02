@@ -20,6 +20,7 @@ macro_rules! run_proposal_test {
 
 run_test!("address", wasm_address);
 run_test!("align", wasm_align);
+#[cfg(not(feature = "call_indirect_overlong"))]
 run_test!("binary", wasm_binary);
 run_test!("block", wasm_block);
 run_test!("br", wasm_br);

@@ -536,7 +536,7 @@ impl MemoryInstance {
     /// [`clear`]: #method.set
     pub fn direct_access(&self) -> impl AsRef<[u8]> + '_ {
         struct Buffer<'a>(Ref<'a, ByteBuf>);
-        impl<'a> AsRef<[u8]> for Buffer<'a> {
+        impl AsRef<[u8]> for Buffer<'_> {
             fn as_ref(&self) -> &[u8] {
                 self.0.as_slice()
             }
@@ -557,7 +557,7 @@ impl MemoryInstance {
     /// [`copy`]: #method.copy
     pub fn direct_access_mut(&self) -> impl AsMut<[u8]> + '_ {
         struct Buffer<'a>(RefMut<'a, ByteBuf>);
-        impl<'a> AsMut<[u8]> for Buffer<'a> {
+        impl AsMut<[u8]> for Buffer<'_> {
             fn as_mut(&mut self) -> &mut [u8] {
                 self.0.as_slice_mut()
             }

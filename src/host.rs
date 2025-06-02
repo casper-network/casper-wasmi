@@ -13,13 +13,13 @@ impl<'a> From<&'a [RuntimeValue]> for RuntimeArgs<'a> {
     }
 }
 
-impl<'a> AsRef<[RuntimeValue]> for RuntimeArgs<'a> {
+impl AsRef<[RuntimeValue]> for RuntimeArgs<'_> {
     fn as_ref(&self) -> &[RuntimeValue] {
         self.0
     }
 }
 
-impl<'a> RuntimeArgs<'a> {
+impl RuntimeArgs<'_> {
     /// Extract argument by index `idx`.
     ///
     /// # Errors

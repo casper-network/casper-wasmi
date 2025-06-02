@@ -33,7 +33,7 @@ impl FuncIdx {
 /// The index of a table declaration within a [`Module`].
 ///
 /// [`Module`]: [`super::Module`]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct TableIdx(pub(super) u32);
 
 impl TableIdx {

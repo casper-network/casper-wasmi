@@ -8,7 +8,7 @@ repository = "https://github.com/casper-network/casper-wasmi"
 description = "Wasm code validator"
 
 [dependencies]
-casper-wasm = { version = "0.46.0", default-features = false }
+casper-wasm = { version = "0.47.0", default-features = false }
 
 [dev-dependencies]
 assert_matches = "1.1"
@@ -17,3 +17,4 @@ assert_matches = "1.1"
 default = ["std"]
 std = ["casper-wasm/std"]
 sign_ext = ["casper-wasm/sign_ext"]
+call_indirect_overlong = ["casper-wasm/call_indirect_overlong"]

@@ -12,6 +12,7 @@ use super::{
 };
 use crate::{
     core::{Trap, TrapCode, F32, F64},
+    module::TableIdx,
     Func,
 };
 use casper_wasmi_core::{
@@ -90,8 +91,8 @@ impl<'engine, 'func> FunctionExecutor<'engine, 'func> {
                 Instr::Call(func) => {
                     return exec_ctx.visit_call(*func)
                 }
-                Instr::CallIndirect(signature)  => {
-                    return exec_ctx.visit_call_indirect(*signature)
+                Instr::CallIndirect(signature, table)  => {
+                    return exec_ctx.visit_call_indirect(*signature, *table)
                 }
                 Instr::Drop => { exec_ctx.visit_drop()?; }
                 Instr::Select => { exec_ctx.visit_select()?; }
@@ -663,9 +664,17 @@ where
         self.call_func(func)
     }
 
-    fn visit_call_indirect(&mut self, signature_index: SignatureIdx) -> Result<CallOutcome, Trap> {
+    fn visit_call_indirect(
+        &mut self,
+        signature_index: SignatureIdx,
+        table_index: TableIdx,
+    ) -> Result<CallOutcome, Trap> {
         let func_index: u32 = self.value_stack.pop_as();
-        let table = self.default_table();
+        let table = self
+            .frame
+            .instance
+            .get_table(self.ctx.as_context(), table_index.into_u32())
+            .ok_or(TrapCode::Unreachable)?;
         let func = table
             .get(self.ctx.as_context(), func_index as usize)
             .map_err(|_| TrapCode::TableAccessOutOfBounds)?
