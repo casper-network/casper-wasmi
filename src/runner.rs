@@ -689,7 +689,7 @@ impl Interpreter {
         let table = context
             .module()
             .table_by_index(table_idx)
-            .ok_or(TrapCode::Unreachable)?;
+            .ok_or(TrapCode::TableAccessOutOfBounds)?;
         #[cfg(not(feature = "call_indirect_overlong"))]
         let table = context
             .module()
