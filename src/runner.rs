@@ -694,7 +694,7 @@ impl Interpreter {
         let table = context
             .module()
             .table_by_index(DEFAULT_TABLE_INDEX)
-            .ok_or(TrapCode::Unreachable)?;
+            .ok_or(TrapCode::TableAccessOutOfBounds)?;
         let func_ref = table
             .get(table_func_idx)
             .map_err(|_| TrapCode::TableAccessOutOfBounds)?
