@@ -1,7 +1,7 @@
 [package]
 name = "casper-wasmi-validation"
 version = "0.7.0"
-authors = ["Parity Technologies <admin@parity.io>"]
+authors = ["Parity Technologies <admin@parity.io>", "Michał Papierski <michal@casper.network>"]
 edition = "2021"
 license = "MIT/Apache-2.0"
 repository = "https://github.com/casper-network/casper-wasmi"
