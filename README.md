@@ -1,4 +1,3 @@
-
 | Continuous Integration |     Test Coverage    |  Documentation   |      Crates.io       |
 |:----------------------:|:--------------------:|:----------------:|:--------------------:|
 | [![ci][1]][2]          | [![codecov][5]][6]   | [![docs][9]][10] | [![crates][11]][12]  |
